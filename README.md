@@ -8,7 +8,7 @@ Current list of subclasses:
 
 - MessageSocket
    
-MessageSocket is a class that can send a string using the TCP connection, sample code:
+MessageSocket is a class wraps a Socket object and sends and receives strings, sample code:
 
     java.net.ServerSocket server = new ServerSocket(port); // Used to accept connections
     java.net.Socket conn = server.accept();                // Accepts a TCP Socket connection
