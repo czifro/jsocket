@@ -1,6 +1,8 @@
 JSocket
 ===============
 
+jar file link: https://www.dropbox.com/s/hrkwv02l7b3bvop/jsocket.jar?dl=0
+
 JSocket wraps a java.net.Socket to easily read and write data to the stream
 The JSocket class is a super class with basic functions of reading and writing bytes on the stream
 
