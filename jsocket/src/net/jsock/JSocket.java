@@ -1,11 +1,7 @@
 package net.jsock;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
-import java.nio.ByteBuffer;
 
 /**
  * Created by czifro on 12/29/14.
@@ -16,14 +12,14 @@ import java.nio.ByteBuffer;
  */
 public class JSocket {
 
-    protected PrintWriter writer;
-    protected BufferedReader reader;
+    protected DataOutputStream out;
+    protected DataInputStream in;
     protected Socket conn;
 
     public JSocket(Socket conn) throws IOException {
         this.conn = conn;
-        writer = new PrintWriter(this.conn.getOutputStream());
-        reader = new BufferedReader(new InputStreamReader(this.conn.getInputStream()));
+        out = new DataOutputStream(conn.getOutputStream());
+        in = new DataInputStream(conn.getInputStream());
     }
 
     /**
@@ -32,14 +28,11 @@ public class JSocket {
      * @return byte[],  bytes sent by client
      */
     public byte[] recv(){
-        String msg = "";
-        char[] data = new char[2048];
-        byte[] byData = new byte[4096];
-        try{
-            reader.read(data);     // reads bytes into char[]
-            ByteBuffer.wrap(byData).asCharBuffer().put(data);  // converts char[] to byte[]
-        }catch(IOException ioe){
-            System.out.println(ioe.getMessage());
+        byte[] byData = new byte[4098];
+        try {
+            in.read(byData);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return byData;
     }
@@ -52,21 +45,23 @@ public class JSocket {
      */
     public byte[] recv_all(int size)
     {
-        char[] data = new char[size];
         byte[] byData = new byte[size];
-        try{
-            reader.read(data);     // reads bytes into char[]
-            ByteBuffer.wrap(byData).asCharBuffer().put(data);  // converts char[] to byte[]
-        }catch(IOException ioe){
-            System.out.println(ioe.getMessage());
+        try {
+            in.read(byData, 0, size);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return byData;
     }
 
     public void send(byte[] b)
     {
-        char[] s = b.toString().toCharArray();
-        writer.print(s);
+        try {
+            out.write(b);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -75,8 +70,8 @@ public class JSocket {
     public void close(){
         try {
             conn.close();
-            writer.close();
-            reader.close();
+            in.close();
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

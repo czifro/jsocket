@@ -1,6 +1,7 @@
 package net.jsock;
 
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
@@ -12,12 +13,15 @@ import java.net.Socket;
 */
 public class MessageSocket extends JSocket {
 
+    DataOutputStream out;
+
     /*
     * Creates streams to send and receive data on connection
     * @param Socket,  clients connection
     */
     public MessageSocket(Socket conn) throws IOException {
         super(conn);
+        out = new DataOutputStream(conn.getOutputStream());
     }
 
     /**
