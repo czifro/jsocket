@@ -76,4 +76,9 @@ public class JSocket {
             e.printStackTrace();
         }
     }
+
+    public boolean isClosed()
+    {
+        return conn.isClosed();
+    }
 }
