@@ -6,9 +6,9 @@ import java.net.Socket;
 /**
  * Created by czifro on 12/29/14.
  * @author Will Czifro
- * @version 0.1.0
+ * @version 0.1.1
  *
- * A wrapper for Socket connections
+ * A wrapper for Socket connection
  */
 public class JSocket {
 
@@ -16,6 +16,11 @@ public class JSocket {
     protected DataInputStream in;
     protected Socket conn;
 
+    /**
+     *
+     * @param conn, A Socket connection
+     * @throws java.io.IOException, Throws IOException if I/O streams cannot be opened
+     */
     public JSocket(Socket conn) throws IOException {
         this.conn = conn;
         out = new DataOutputStream(conn.getOutputStream());
@@ -23,37 +28,42 @@ public class JSocket {
     }
 
     /**
-     * Receives message from client in bytes
+     * Receives small message in bytes
      *
-     * @return byte[],  bytes sent by client
+     * @return byte[],  bytes received
      */
     public byte[] recv(){
-        byte[] byData = new byte[4098];
+        byte[] bytes = new byte[1024];
         try {
-            in.read(byData);
+            in.read(bytes);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return byData;
+        return bytes;
     }
 
     /**
-     * Receives message from client in bytes
+     * Receives message of specified size in bytes
      *
      * @param size, buffer size
-     * @return
+     * @return byte[],  bytes received
      */
     public byte[] recv_all(int size)
     {
-        byte[] byData = new byte[size];
+        byte[] bytes = new byte[size];
         try {
-            in.read(byData, 0, size);
+            in.read(bytes, 0, size);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return byData;
+        return bytes;
     }
 
+    /**
+     * Sends bytes
+     *
+     * @param b,  bytes to be sent
+     */
     public void send(byte[] b)
     {
         try {
@@ -77,6 +87,11 @@ public class JSocket {
         }
     }
 
+    /**
+     * Checks if connection has been closed
+     *
+     * @return boolean
+     */
     public boolean isClosed()
     {
         return conn.isClosed();

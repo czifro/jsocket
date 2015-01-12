@@ -1,27 +1,26 @@
 package net.jsock;
 
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 
 /**
-* Created by czifro on 12/29/14
-* @author Will Czifro
-* Handles streaming data to and from client
-*/
+ * Created by czifro on 12/29/14
+ * @author Will Czifro
+ * @version 0.1.1
+ *
+ * A wrapper for Socket connection, can send and receive Strings
+ */
 public class MessageSocket extends JSocket {
 
-    DataOutputStream out;
-
-    /*
-    * Creates streams to send and receive data on connection
-    * @param Socket,  clients connection
-    */
+    /**
+     * Wraps around a Socket connection and opens I/O streams
+     * @param conn,  A Socket connection
+     * @throws java.io.IOException,  Throws IOException if I/O streams cannot be opened
+     */
     public MessageSocket(Socket conn) throws IOException {
         super(conn);
-        out = new DataOutputStream(conn.getOutputStream());
     }
 
     /**
@@ -41,6 +40,11 @@ public class MessageSocket extends JSocket {
         return temp;
     }
 
+    /**
+     * Receives small message from socket and converts it to a String
+     *
+     * @return String,  message received
+     */
     public String recv_msg()
     {
         String msg = "";
@@ -53,6 +57,12 @@ public class MessageSocket extends JSocket {
         return msg;
     }
 
+    /**
+     * Receives message of specified size from socket and converts it to a String
+     *
+     * @param size,  The size to set buffer to
+     * @return String,  message received
+     */
     public String recv_all_msg(int size)
     {
         String msg = "";
@@ -67,8 +77,8 @@ public class MessageSocket extends JSocket {
 
 
     /**
-     * Writes message to stream and sends it
-     * @param msg,  a String to be sent to client
+     * Sends String as byte array
+     * @param msg,  String to be sent
      */
     public void send_msg(String msg){
         send(msg.getBytes());
