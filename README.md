@@ -21,7 +21,7 @@ example code:
 Current list of subclasses:
 
 - MessageSocket
-  - ObjectSocket (Inherits from MessageSocket, on separate branch, being tested)
+  - ObjectSocket (Inherits from MessageSocket)
    
 MessageSocket is a class that wraps a Socket object and sends and receives strings, sample code:
 
