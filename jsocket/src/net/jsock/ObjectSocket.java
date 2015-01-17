@@ -1,12 +1,10 @@
 package net.jsock;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.Socket;
 
 /**
@@ -17,16 +15,13 @@ import java.net.Socket;
  */
 public class ObjectSocket extends MessageSocket {
 
-    private JSONObject jObj;
-    private JSONParser parser;
-    private ObjectMapper objectMapper;
+    private Gson gson;
     private String failedJson = null;
 
     public ObjectSocket(Socket conn) throws IOException {
         super(conn);
 
-        parser = new JSONParser();
-        objectMapper = new ObjectMapper();
+        gson = new Gson();
     }
 
     /**
@@ -34,14 +29,14 @@ public class ObjectSocket extends MessageSocket {
      *
      * @return Object, returns null if conversion JSONString -> Object failed
      */
-    public Object recv_object()
+    public Object recv_object(Class<?> type)
     {
         String s_size = recv_msg();
         send_msg("Ok");
         String json = recv_all_msg(Integer.parseInt(s_size));
         try {
-            return parser.parse(json);
-        } catch (ParseException e) {
+            return gson.fromJson(json, type);
+        } catch (JsonSyntaxException e) {
             e.printStackTrace();
             failedJson = json;
         }
@@ -72,9 +67,10 @@ public class ObjectSocket extends MessageSocket {
      *
      * @param obj
      */
-    public void send_object(Object obj) {
-        ObjectWriter ow = objectMapper.writer().withDefaultPrettyPrinter();
-        String json = ow.writeValueAsString(obj);
+    public void send_object(Object obj, Type type) throws IOException {
+        String json = null;
+
+        json = gson.toJson(obj, type);
 
         send_msg(Integer.toString(json.getBytes().length));
         recv_msg();
