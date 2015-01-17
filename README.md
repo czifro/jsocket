@@ -44,7 +44,7 @@ Sample code:
       
       Person p = new Person("William", 22);
       
-      sock.send_object(p);                         // Object will be converted to a JSON String and sent
+      sock.send_object(p, Person.class);           // Object will be converted to a JSON String and sent
       
       Person p2 = sock.recv_object(Person.class);  // Specify class type and it will return an object of that type
       
