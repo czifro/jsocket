@@ -5,9 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Created by czifro on 12/29/14.
- *
- * A dumby class
+ * Created by czifro on 12/29/14. Class not usable.
+ * @version 0.2.0
  */
 public class Main {
     private final int PORT = 50000;

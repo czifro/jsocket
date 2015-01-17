@@ -4,11 +4,9 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * Created by czifro on 12/29/14.
+ * Created by czifro on 12/29/14. A wrapper for Socket connection
  * @author Will Czifro
  * @version 0.1.1
- *
- * A wrapper for Socket connection
  */
 public class JSocket {
 
@@ -17,9 +15,9 @@ public class JSocket {
     protected Socket conn;
 
     /**
-     *
-     * @param conn, A Socket connection
-     * @throws java.io.IOException, Throws IOException if I/O streams cannot be opened
+     * Wraps around a Socket connection and opens I/O streams
+     * @param conn A Socket connection
+     * @throws java.io.IOException Throws IOException if I/O streams cannot be opened
      */
     public JSocket(Socket conn) throws IOException {
         this.conn = conn;
@@ -30,7 +28,7 @@ public class JSocket {
     /**
      * Receives small message in bytes
      *
-     * @return byte[],  bytes received
+     * @return   bytes received
      */
     public byte[] recv(){
         byte[] bytes = new byte[1024];
@@ -45,8 +43,8 @@ public class JSocket {
     /**
      * Receives message of specified size in bytes
      *
-     * @param size, buffer size
-     * @return byte[],  bytes received
+     * @param size buffer size
+     * @return     bytes received
      */
     public byte[] recv_all(int size)
     {
@@ -62,7 +60,7 @@ public class JSocket {
     /**
      * Sends bytes
      *
-     * @param b,  bytes to be sent
+     * @param b bytes to be sent
      */
     public void send(byte[] b)
     {
@@ -90,7 +88,7 @@ public class JSocket {
     /**
      * Checks if connection has been closed
      *
-     * @return boolean
+     * @return    True if socket is closed, otherwise false
      */
     public boolean isClosed()
     {
