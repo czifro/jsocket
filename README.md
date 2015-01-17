@@ -1,7 +1,9 @@
 JSocket
 ===============
 
-jar file link: https://www.dropbox.com/s/hrkwv02l7b3bvop/jsocket.jar?dl=0
+
+Summary
+----------
 
 JSocket wraps a java.net.Socket to easily read and write data to the stream.
 The JSocket class is a super class with basic functions of reading and writing bytes on the stream
@@ -51,3 +53,27 @@ Sample code:
       String json = sock.recv_object_asString();   // Returns the JSON that is received
       
       String failedJson = sock.recover_failed_json() // Should parsing the received JSON fail, you can recover it
+
+===============
+
+
+Build History
+--------------
+
+0.1.1:
+
+- Included JSocket and MessageSocket class
+- Bugs of previous build were fixed
+   
+0.2.0:
+
+- Added ObjectSocket to package
+- Fixed JavaDocs
+   
+=====================
+
+
+Download
+-----------
+
+Link to builds: https://www.dropbox.com/sh/kz0lbcw93r03tfx/AADt_1Jc8MImNdgpZQyF2u9Ia?dl=0
