@@ -24,6 +24,7 @@ Current list of subclasses:
 
 - MessageSocket
   - ObjectSocket (Inherits from MessageSocket)
+  - FileTransferSocket (Inherits from MessageSocket, separate branch, untested)
    
 MessageSocket is a class that wraps a Socket object and sends and receives strings, sample code:
 
@@ -69,6 +70,14 @@ Build History
 
 - Added ObjectSocket to package
 - Fixed JavaDocs
+
+0.3.0 (unstable):
+
+- Added GNU General Public License
+- Added FileTransferSocket to package
+- Changed JSocket.recv_all(size) to read in chunks
+- Added method to send large byte array to JSocket
+- Added method to send large message tp MessageSocket
    
 =====================
 
