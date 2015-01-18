@@ -8,11 +8,11 @@ import java.net.Socket;
  * Created by czifro on 12/29/14. Class not usable.
  * @version 0.2.0
  */
-public class Main {
+public class Test {
     private final int PORT = 50000;
     private ServerSocket server;
     public static void main(String [] args) {
-        Main m = new Main();
+        Test m = new Test();
         m.testObjectSocket();
         try {
 
