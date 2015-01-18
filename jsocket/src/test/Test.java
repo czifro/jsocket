@@ -1,4 +1,6 @@
-package net.jsock;
+package test;
+
+import net.jsock.ObjectSocket;
 
 import java.io.IOException;
 import java.net.ServerSocket;
