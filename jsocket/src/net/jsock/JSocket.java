@@ -6,13 +6,18 @@ import java.net.Socket;
 /**
  * Created by czifro on 12/29/14. A wrapper for Socket connection
  * @author Will Czifro
- * @version 0.1.1
+ * @version 0.2.0
  */
 public class JSocket {
 
     protected DataOutputStream out;
     protected DataInputStream in;
     protected Socket conn;
+
+    /**
+     * Default size is 96, increase to read and write larger chunks
+     */
+    public int CHUNK_SIZE = 96;
 
     /**
      * Wraps around a Socket connection and opens I/O streams
@@ -49,8 +54,14 @@ public class JSocket {
     public byte[] recv_all(int size)
     {
         byte[] bytes = new byte[size];
+        int off = 0;
         try {
-            in.read(bytes, 0, size);
+            // reads in chunks at a time
+            while (in.available() > 0)
+            {
+                in.read(bytes, off, (off + 96 > size ? size - off : 96));
+                off += 96;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,6 +79,29 @@ public class JSocket {
             out.write(b);
             out.flush();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Sends large byte[] in chunks
+     *
+     * @param b   Large byte[]
+     * @param len length of byte[]
+     */
+    public void send_all(byte[] b, int len)
+    {
+        int off = 0;
+        try {
+            // writes chunks to the output stream
+            while (out.size() < len)
+            {
+                out.write(b, off, (off +CHUNK_SIZE > len ? len - off : CHUNK_SIZE));
+                off += CHUNK_SIZE;
+            }
+            out.flush();
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
     }

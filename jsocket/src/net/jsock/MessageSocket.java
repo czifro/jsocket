@@ -8,7 +8,7 @@ import java.net.Socket;
 /**
  * Created by czifro on 12/29/14. A wrapper for Socket connection, can send and receive Strings
  * @author Will Czifro
- * @version 0.1.1
+ * @version 0.1.2
  */
 public class MessageSocket extends JSocket {
 
@@ -75,12 +75,19 @@ public class MessageSocket extends JSocket {
 
 
     /**
-     * Sends String as byte array
+     * Sends small String objects
      * @param msg String to be sent
      */
     public void send_msg(String msg){
         send(msg.getBytes());
     }
 
-
+    /**
+     * Sends large String objects
+     * @param msg String to be sent
+     */
+    public void send_large_msg(String msg) {
+        int len = msg.getBytes().length;
+        send_all(msg.getBytes(), len);
+    }
 }
