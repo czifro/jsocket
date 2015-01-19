@@ -75,7 +75,7 @@ FileTransferSocket is a class that is designed to send and receive files over a 
 Build History
 --------------
 
-Please look at "change log.txt" to view build history
+Please use following link: https://github.com/czifro/JSocket/wiki/Listed-Releases
    
 =====================
 
