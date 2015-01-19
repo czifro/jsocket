@@ -1,5 +1,3 @@
-package net.jsock;
-
 /*
 
     Copyright (C) 2015  Will Czifro
@@ -11,15 +9,17 @@ package net.jsock;
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    The net.jsock package is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    along with the net.jsock package.  If not, see <http://www.gnu.org/licenses/>.
 
  */
+
+package net.jsock;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

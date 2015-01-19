@@ -1,5 +1,3 @@
-package net.jsock;
-
 /*
 
     Copyright (C) 2015  Will Czifro
@@ -11,23 +9,21 @@ package net.jsock;
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    The net.jsock package is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    along with the net.jsock package.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+package net.jsock;
+
+import java.io.*;
 import java.net.Socket;
 import java.security.InvalidParameterException;
-import java.util.Scanner;
 
 /**
  * Created by czifro on 1/17/15. FileTransferSocket allows for files to be sent across a socket connection
@@ -36,7 +32,7 @@ import java.util.Scanner;
  */
 public class FileTransferSocket extends MessageSocket {
 
-    private Scanner input;
+    private FileInputStream fis;
     private FileOutputStream fos;
 
     /**
@@ -52,20 +48,20 @@ public class FileTransferSocket extends MessageSocket {
     /**
      * Receives a file of any type and arbitrary size.
      * An app protocol is used, complements send_file() method
-     * @param path Path to folder file is to be written to
+     * @param folderPath Path to folder file is to be written to
      * @return     File object that points to saved file
      * @throws IOException Throws exception if a file stream cannot be opened
      */
-    public File recv_file(String path) throws IOException
+    public File recv_file(String folderPath) throws IOException
     {
         String transfer_type = recv_msg();
         send_msg("Ok");
-        path += recv_msg();
+        folderPath += recv_msg();
         send_msg("Ok");
         String f_size = recv_msg();
         send_msg("Ok");
 
-        File file = new File(path);
+        File file = new File(folderPath);
 
         if (transfer_type.equals(TransferType.MULTISTAGE))
             return multi_stage_recv(file, Long.getLong(f_size));
@@ -86,6 +82,8 @@ public class FileTransferSocket extends MessageSocket {
             byte[] bytes = recv_all(buf);
 
             fos.write(bytes, 0, buf);
+
+            off += buf;
         }
 
         fos.close();
@@ -113,9 +111,9 @@ public class FileTransferSocket extends MessageSocket {
      * or single stage--file name, and file size before transmitting file
      * @param file  File that is to be transferred
      * @throws InvalidParameterException Throws exception if file does not point to a file
-     * @throws FileNotFoundException Throws exception if file cannot be found
+     * @throws IOException Throws exception if file cannot be found, or cannot be read
      */
-    public void send_file(File file) throws InvalidParameterException, FileNotFoundException
+    public void send_file(File file) throws InvalidParameterException, IOException
     {
         if (!file.exists())
             throw new FileNotFoundException("File does not exist");
@@ -128,16 +126,15 @@ public class FileTransferSocket extends MessageSocket {
         else
             single_stage_send(file);
 
-        input.close();
+        fis.close();
     }
 
-    private void multi_stage_send(File file) throws FileNotFoundException
+    private void multi_stage_send(File file) throws IOException
     {
         final long filesize = file.length();
         final int len = Integer.MAX_VALUE;
         long off = 0;
 
-        input = new Scanner(file);
 
         {   // tells listener how file is being transferred, file name, and file size
             send_msg(TransferType.MULTISTAGE);
@@ -154,10 +151,7 @@ public class FileTransferSocket extends MessageSocket {
             int buf = (off+len > filesize ? diff : len);
             byte[] bytes = new byte[buf];
 
-            for (int i = 0; i < buf; ++i)
-            {
-                bytes[i] = input.nextByte();
-            }
+            fis.read(bytes, 0, buf);
 
             send_all(bytes, buf);
 
@@ -165,11 +159,11 @@ public class FileTransferSocket extends MessageSocket {
         }
     }
 
-    private void single_stage_send(File file) throws FileNotFoundException
+    private void single_stage_send(File file) throws IOException
     {
         final int filesize = (int) file.length();
 
-        input = new Scanner(file);
+        fis = new FileInputStream(file);
 
         {   // tells listener how file is being transfer, file name, and file size
             send_msg(TransferType.SINGLESTAGE);
@@ -182,10 +176,11 @@ public class FileTransferSocket extends MessageSocket {
 
         byte[] bytes = new byte[filesize];
 
-        for (int i = 0; i < filesize; ++i)
-        {
-            bytes[i] = input.nextByte();
-        }
+        int available = fis.available();
+
+        fis.read(bytes);
+
+        available = fis.available();
 
         send_all(bytes, filesize);
     }

@@ -1,5 +1,3 @@
-package net.jsock;
-
 /*
 
     Copyright (C) 2015  Will Czifro
@@ -17,9 +15,11 @@ package net.jsock;
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with net.jsock.  If not, see <http://www.gnu.org/licenses/>.
+    along with the net.jsock package.  If not, see <http://www.gnu.org/licenses/>.
 
  */
+
+package net.jsock;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
