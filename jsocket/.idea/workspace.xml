@@ -45,12 +45,11 @@
       <file leaf-file-name="Test.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="507">
-              <caret line="68" column="4" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="466" max-vertical-offset="1131">
+              <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#testObjectSocket#0;class#Test#0" expanded="false" />
-                <element signature="method#testFileTransferSocket#0;class#Test#0" expanded="false" />
                 <element signature="class#Person#0;class#Test#0" expanded="false" />
               </folding>
             </state>
@@ -60,10 +59,10 @@
       <file leaf-file-name="FileTransferSocket.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/jsock/FileTransferSocket.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="871" max-vertical-offset="2600">
-              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.27288136" vertical-offset="827" max-vertical-offset="2639">
+              <caret line="76" column="18" selection-start-line="76" selection-start-column="18" selection-end-line="76" selection-end-column="18" />
               <folding>
-                <element signature="e#0#5611#0" expanded="true" />
+                <element signature="e#0#5681#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
@@ -95,8 +94,8 @@
         <option value="$PROJECT_DIR$/src/net/jsock/MessageSocket.java" />
         <option value="$PROJECT_DIR$/src/net/jsock/JSocket.java" />
         <option value="$PROJECT_DIR$/src/net/jsock/ObjectSocket.java" />
-        <option value="$PROJECT_DIR$/src/net/jsock/FileTransferSocket.java" />
         <option value="$PROJECT_DIR$/src/test/Test.java" />
+        <option value="$PROJECT_DIR$/src/net/jsock/FileTransferSocket.java" />
       </list>
     </option>
   </component>
@@ -527,6 +526,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3270073" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26511136" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -537,13 +537,12 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21515736" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34464476" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18981972" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3452116" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -617,12 +616,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/Test.java</url>
-          <line>87</line>
+          <line>104</line>
           <properties />
-          <option name="timeStamp" value="30" />
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="31" />
+      <option name="time" value="32" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -638,7 +637,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#testObjectSocket#0;class#Test#0" expanded="false" />
-            <element signature="method#testFileTransferSocket#0;class#Test#0" expanded="false" />
             <element signature="class#Person#0;class#Test#0" expanded="false" />
           </folding>
         </state>
@@ -679,7 +677,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#testObjectSocket#0;class#Test#0" expanded="false" />
-            <element signature="method#testFileTransferSocket#0;class#Test#0" expanded="false" />
             <element signature="class#Person#0;class#Test#0" expanded="false" />
           </folding>
         </state>
@@ -720,7 +717,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#testObjectSocket#0;class#Test#0" expanded="false" />
-            <element signature="method#testFileTransferSocket#0;class#Test#0" expanded="false" />
             <element signature="class#Person#0;class#Test#0" expanded="false" />
           </folding>
         </state>
@@ -988,6 +984,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6955">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1038,12 +1035,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="507">
-          <caret line="68" column="4" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="466" max-vertical-offset="1131">
+          <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#testObjectSocket#0;class#Test#0" expanded="false" />
-            <element signature="method#testFileTransferSocket#0;class#Test#0" expanded="false" />
             <element signature="class#Person#0;class#Test#0" expanded="false" />
           </folding>
         </state>
@@ -1051,10 +1047,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/jsock/FileTransferSocket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2600">
-          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.27288136" vertical-offset="827" max-vertical-offset="2639">
+          <caret line="76" column="18" selection-start-line="76" selection-start-column="18" selection-end-line="76" selection-end-column="18" />
           <folding>
-            <element signature="e#0#5611#0" expanded="true" />
+            <element signature="e#0#5681#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>

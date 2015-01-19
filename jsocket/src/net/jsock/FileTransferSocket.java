@@ -63,8 +63,10 @@ public class FileTransferSocket extends MessageSocket {
 
         File file = new File(folderPath);
 
+        long size = Long.parseLong(f_size);
+
         if (transfer_type.equals(TransferType.MULTISTAGE))
-            return multi_stage_recv(file, Long.getLong(f_size));
+            return multi_stage_recv(file, size);
         return single_stage_recv(file, Integer.parseInt(f_size));
     }
 
@@ -120,6 +122,7 @@ public class FileTransferSocket extends MessageSocket {
         if (!file.isFile())
             throw new InvalidParameterException("Parameter must be a file");
 
+        fis = new FileInputStream(file);
 
         if (file.length() > Integer.MAX_VALUE)
             multi_stage_send(file);

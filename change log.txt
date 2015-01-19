@@ -1,0 +1,26 @@
+0.1.1:
+
+- Included JSocket and MessageSocket class
+- Bugs of previous build were fixed
+   
+0.2.0:
+
+- Added ObjectSocket to package
+- Fixed JavaDocs
+
+0.3.0 (unstable):
+
+- Added GNU General Public License
+- Added FileTransferSocket to package
+- Changed JSocket.recv_all(size) to read in chunks
+- Added method to send large byte array to JSocket
+- Added method to send large message tp MessageSocket
+ 
+0.3.0 (stable):
+
+- Merged into main package
+- Fixed bugs, successfully sends and receives files
+
+0.3.1:
+
+- Fixed bug with sending large file

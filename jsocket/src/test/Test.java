@@ -68,7 +68,7 @@ public class Test {
     public void testFileTransferSocket()
     {
 
-        final File f = new File("/Users/czifro/Desktop/HW5.zip");
+        final File f = new File("/Users/czifro/Desktop/server.js");
 
         if (f.exists())
         {
