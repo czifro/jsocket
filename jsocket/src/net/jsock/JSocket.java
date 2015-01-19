@@ -1,3 +1,24 @@
+/*
+
+    Copyright (C) 2015  Will Czifro
+
+    This file is part of the net.jsock package
+
+    The net.jsock package is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The net.jsock package is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the net.jsock package.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
 package net.jsock;
 
 import java.io.*;
@@ -6,13 +27,18 @@ import java.net.Socket;
 /**
  * Created by czifro on 12/29/14. A wrapper for Socket connection
  * @author Will Czifro
- * @version 0.1.1
+ * @version 0.2.0
  */
 public class JSocket {
 
     protected DataOutputStream out;
     protected DataInputStream in;
     protected Socket conn;
+
+    /**
+     * Default size is 96, increase to read and write larger chunks
+     */
+    public int CHUNK_SIZE = 96;
 
     /**
      * Wraps around a Socket connection and opens I/O streams
@@ -49,8 +75,14 @@ public class JSocket {
     public byte[] recv_all(int size)
     {
         byte[] bytes = new byte[size];
+        int off = 0;
         try {
-            in.read(bytes, 0, size);
+            // reads in chunks at a time
+            while (in.available() > 0)
+            {
+                in.read(bytes, off, (off + 96 > size ? size - off : 96));
+                off += 96;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,6 +100,29 @@ public class JSocket {
             out.write(b);
             out.flush();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Sends large byte[] in chunks
+     *
+     * @param b   Large byte[]
+     * @param len length of byte[]
+     */
+    public void send_all(byte[] b, int len)
+    {
+        int off = 0;
+        try {
+            // writes chunks to the output stream
+            while (out.size() < len)
+            {
+                out.write(b, off, (off +CHUNK_SIZE > len ? len - off : CHUNK_SIZE));
+                off += CHUNK_SIZE;
+            }
+            out.flush();
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
     }

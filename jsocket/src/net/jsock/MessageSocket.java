@@ -1,5 +1,25 @@
-package net.jsock;
+/*
 
+    Copyright (C) 2015  Will Czifro
+
+    This file is part of the net.jsock package
+
+    The net.jsock package is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The net.jsock package is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the net.jsock package.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+package net.jsock;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -8,7 +28,7 @@ import java.net.Socket;
 /**
  * Created by czifro on 12/29/14. A wrapper for Socket connection, can send and receive Strings
  * @author Will Czifro
- * @version 0.1.1
+ * @version 0.1.2
  */
 public class MessageSocket extends JSocket {
 
@@ -75,12 +95,19 @@ public class MessageSocket extends JSocket {
 
 
     /**
-     * Sends String as byte array
+     * Sends small String objects
      * @param msg String to be sent
      */
     public void send_msg(String msg){
         send(msg.getBytes());
     }
 
-
+    /**
+     * Sends large String objects
+     * @param msg String to be sent
+     */
+    public void send_large_msg(String msg) {
+        int len = msg.getBytes().length;
+        send_all(msg.getBytes(), len);
+    }
 }
