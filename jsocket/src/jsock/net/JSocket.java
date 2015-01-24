@@ -1,27 +1,33 @@
 /*
 
-    Copyright (C) 2015  Will Czifro
+    Copyright (C) 2015  William Czifro
 
-    This file is part of the net.jsock package
+    This file is part of the jsock.net package
 
-    The net.jsock package is free software: you can redistribute it and/or modify
+    The jsock.net package is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    The net.jsock package is distributed in the hope that it will be useful,
+    The jsock.net package is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with the net.jsock package.  If not, see <http://www.gnu.org/licenses/>.
+    along with the jsock.net package.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
-package net.jsock;
+package jsock.net;
 
-import java.io.*;
+import jsock.crypto.AES;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -34,6 +40,8 @@ public class JSocket {
     protected DataOutputStream out;
     protected DataInputStream in;
     protected Socket conn;
+    protected AES aes;
+    protected boolean encrypt_decrypt = false;
 
     /**
      * Default size is 96, increase to read and write larger chunks
@@ -59,8 +67,14 @@ public class JSocket {
     public byte[] recv(){
         byte[] bytes = new byte[1024];
         try {
+            if (aes != null && encrypt_decrypt)
+                bytes = aes.decrypt(bytes);
             in.read(bytes);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
             e.printStackTrace();
         }
         return bytes;
@@ -80,10 +94,17 @@ public class JSocket {
             // reads in chunks at a time
             while (in.available() > 0)
             {
-                in.read(bytes, off, (off + 96 > size ? size - off : 96));
+                int len = (off + 96 > size ? size - off : 96);
+                if (aes != null && encrypt_decrypt)
+                    bytes = aes.decrypt(bytes);
+                in.read(bytes, off, len);
                 off += 96;
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
             e.printStackTrace();
         }
         return bytes;
@@ -97,9 +118,15 @@ public class JSocket {
     public void send(byte[] b)
     {
         try {
+            if (aes != null && encrypt_decrypt)
+                b = aes.encrypt(b);
             out.write(b);
             out.flush();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
             e.printStackTrace();
         }
     }
@@ -117,14 +144,36 @@ public class JSocket {
             // writes chunks to the output stream
             while (out.size() < len)
             {
-                out.write(b, off, (off +CHUNK_SIZE > len ? len - off : CHUNK_SIZE));
+                int length = (off +CHUNK_SIZE > len ? len - off : CHUNK_SIZE);
+                if (aes != null && encrypt_decrypt)
+                    b = aes.encrypt(b);
+                out.write(b, off, length);
                 off += CHUNK_SIZE;
             }
             out.flush();
         } catch (IOException e)
         {
             e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void setAES(AES aes)
+    {
+        this.aes = aes;
+    }
+
+    public void encryptConnection(boolean useEncryption)
+    {
+        encrypt_decrypt = useEncryption;
+    }
+
+    public boolean connectionEncrypted()
+    {
+        return encrypt_decrypt;
     }
 
     /**

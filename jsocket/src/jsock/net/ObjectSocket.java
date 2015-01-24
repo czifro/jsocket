@@ -1,6 +1,6 @@
 /*
 
-    Copyright (C) 2015  Will Czifro
+    Copyright (C) 2015  William Czifro
 
     This file is part of the net.jsock package
 
@@ -19,7 +19,7 @@
 
  */
 
-package net.jsock;
+package jsock.net;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -54,7 +54,7 @@ public class ObjectSocket extends MessageSocket {
      * Receives JSONString and attempts convert to Object, if conversion fails, use recover_failed_json() to get failed message
      *
      * @param type Class type JSONString should be converted to.
-     * @return     returns null if conversion JSONString -> Object failed
+     * @return     returns null if conversion JSONString to Object failed
      */
     public Object recv_object(Class<?> type)
     {
