@@ -1,25 +1,28 @@
 /*
 
-    Copyright (C) 2015  Will Czifro
+    Copyright (C) 2015  William Czifro
 
-    This file is part of the net.jsock package
+    This file is part of the jsock.net package
 
-    The net.jsock package is free software: you can redistribute it and/or modify
+    The jsock.net package is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    The net.jsock package is distributed in the hope that it will be useful,
+    The jsock.net package is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with the net.jsock package.  If not, see <http://www.gnu.org/licenses/>.
+    along with the jsock.net package.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
-package net.jsock;
+package jsock.net;
+
+import jsock.enums.StringCleanType;
+import jsock.util.StringCleaner;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -42,23 +45,6 @@ public class MessageSocket extends JSocket {
     }
 
     /**
-     * Removes '\0' characters from string
-     * @param msg message to be rebuilt
-     * @return String,  rebuilt message
-     */
-    private static String constructCleanMessage(String msg){
-        String temp = "";
-        for (char c : msg.toCharArray()){
-            if (c == '\0'){
-                continue;
-            }
-            temp += c;
-        }
-
-        return temp;
-    }
-
-    /**
      * Receives small message from socket and converts it to a String
      *
      * @return    message received
@@ -68,7 +54,7 @@ public class MessageSocket extends JSocket {
         String msg = "";
         byte[] bytes = recv();
         try {
-            msg = constructCleanMessage(new String(bytes, "UTF-8"));
+            msg = StringCleaner.cleanString(new String(bytes, "UTF-8"), StringCleanType.ONLY_NULLS);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -86,7 +72,7 @@ public class MessageSocket extends JSocket {
         String msg = "";
         byte[] bytes = recv_all(size);
         try {
-            msg = constructCleanMessage(new String(bytes, "UTF-8"));
+            msg = StringCleaner.cleanString(new String(bytes, "UTF-8"), StringCleanType.ONLY_NULLS);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

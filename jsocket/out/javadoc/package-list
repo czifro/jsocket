@@ -1,2 +1,6 @@
-net.jsock
-test
+
+jsock.crypto
+jsock.enums
+jsock.net
+jsock.net.ftp
+jsock.util

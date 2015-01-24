@@ -1,7 +1,5 @@
-package test;
-
-import net.jsock.FileTransferSocket;
-import net.jsock.ObjectSocket;
+import jsock.net.ftp.FileTransferSocket;
+import jsock.net.ObjectSocket;
 
 import java.io.File;
 import java.io.IOException;
