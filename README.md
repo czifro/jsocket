@@ -16,6 +16,14 @@ JSocket was developed with those who create TCP servers using Java in mind. This
 ===========
 
 
+Credit
+-------------
+
+The ObjectSocket class is functional partly due to Google's [Gson package for Java](https://code.google.com/p/google-gson/). This package is great for converting any object to JSON and vice versa.
+
+===========
+
+
 How to Use
 -----------
 
