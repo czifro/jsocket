@@ -1,6 +1,6 @@
 /*
 
-    Copyright (C) 2015  William Czifro
+    Copyright (C) 2015  Czifro Development
 
     This file is part of the jsock.net package
 
@@ -21,9 +21,11 @@
 
 package jsock.net;
 
-import jsock.enums.StringCleanType;
-import jsock.util.StringCleaner;
+import jsock.enums.StringToolType;
+import jsock.util.StringTool;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
@@ -31,7 +33,7 @@ import java.net.Socket;
 /**
  * Created by czifro on 12/29/14. A wrapper for Socket connection, can send and receive Strings
  * @author Will Czifro
- * @version 0.1.2
+ * @version 0.2.0
  */
 public class MessageSocket extends JSocket {
 
@@ -52,9 +54,20 @@ public class MessageSocket extends JSocket {
     public String recv_msg()
     {
         String msg = "";
-        byte[] bytes = recv();
+        byte[] bytes = new byte[0];
+
+        if (connectionIsEncrypted())
+        {
+            try {
+                bytes = recv_encrypted();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            bytes = recv();
         try {
-            msg = StringCleaner.cleanString(new String(bytes, "UTF-8"), StringCleanType.ONLY_NULLS);
+            msg = StringTool.cleanString(new String(bytes, "UTF-8"), StringToolType.ONLY_NULLS);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -67,12 +80,23 @@ public class MessageSocket extends JSocket {
      * @param size The size to set buffer to
      * @return     message received
      */
-    public String recv_all_msg(int size)
+    public String recv_large_msg(int size)
     {
         String msg = "";
         byte[] bytes = recv_all(size);
+
+        if (connectionIsEncrypted())
+        {
+            try {
+                bytes = rsa.decrypt(bytes);
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            }
+        }
         try {
-            msg = StringCleaner.cleanString(new String(bytes, "UTF-8"), StringCleanType.ONLY_NULLS);
+            msg = StringTool.cleanString(new String(bytes, "UTF-8"), StringToolType.ONLY_NULLS);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -85,15 +109,12 @@ public class MessageSocket extends JSocket {
      * @param msg String to be sent
      */
     public void send_msg(String msg){
+        if (connectionIsEncrypted())
+        {
+            send_encrypted(msg.getBytes());
+            return;
+        }
         send(msg.getBytes());
     }
 
-    /**
-     * Sends large String objects
-     * @param msg String to be sent
-     */
-    public void send_large_msg(String msg) {
-        int len = msg.getBytes().length;
-        send_all(msg.getBytes(), len);
-    }
 }

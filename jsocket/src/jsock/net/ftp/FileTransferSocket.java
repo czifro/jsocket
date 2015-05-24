@@ -1,6 +1,6 @@
 /*
 
-    Copyright (C) 2015  William Czifro
+    Copyright (C) 2015  Czifro Development
 
     This file is part of the jsock.net.ftp package
 
@@ -21,9 +21,10 @@
 
 package jsock.net.ftp;
 
+import jsock.enums.AckType;
 import jsock.enums.TransferType;
 import jsock.net.MessageSocket;
-import jsock.util.ByteChecker;
+import jsock.util.ByteTool;
 
 import java.io.*;
 import java.net.Socket;
@@ -32,13 +33,17 @@ import java.security.InvalidParameterException;
 /**
  * Created by czifro on 1/17/15. FileTransferSocket allows for files to be sent across a socket connection
  * @author William Czifro
- * @version 0.1.0
+ * @version 0.2.0
  */
 public class FileTransferSocket extends MessageSocket {
 
     private FileInputStream fis;
     private FileOutputStream fos;
     private Object locker = new Object();
+
+    private final int LONG_BYTE_ARRAY_SIZE = 8;
+    private final int INT_BYTE_ARRAY_SIZE = 4;
+    private final int ACK_BYTE_ARRAY_SIZE = 4;
 
     /**
      * Wraps around a Socket connection and opens I/O streams
@@ -62,6 +67,23 @@ public class FileTransferSocket extends MessageSocket {
     public File recv_file(String folderPath) throws IOException {
         synchronized (locker) {
             String transfer_type = recv_msg();
+            send(ByteTool.intToByteArray(AckType.ACK, ACK_BYTE_ARRAY_SIZE));
+            folderPath += recv_msg();
+            send(ByteTool.intToByteArray(AckType.ACK, ACK_BYTE_ARRAY_SIZE));
+            long size = ByteTool.byteArrayToLong(recv_all(LONG_BYTE_ARRAY_SIZE));
+            send(ByteTool.intToByteArray(AckType.ACK, ACK_BYTE_ARRAY_SIZE));
+
+            File file = new File(folderPath);
+
+            if (transfer_type.equals(TransferType.MULTISTAGE))
+                return multi_stage_recv(file, size, false);
+            return single_stage_recv(file, (int) size, false);
+        }
+    }
+
+    public File recv_file_encrypted(String folderPath) throws IOException {
+        synchronized (locker) {
+            String transfer_type = recv_msg();
             send_msg("Ok");
             folderPath += recv_msg();
             send_msg("Ok");
@@ -73,16 +95,16 @@ public class FileTransferSocket extends MessageSocket {
             long size = Long.parseLong(f_size);
 
             if (transfer_type.equals(TransferType.MULTISTAGE))
-                return multi_stage_recv(file, size);
-            return single_stage_recv(file, Integer.parseInt(f_size));
+                return multi_stage_recv(file, size, true);
+            return single_stage_recv(file, Integer.parseInt(f_size), true);
         }
     }
 
-    private File multi_stage_recv(File file, long size) throws IOException
+    private File multi_stage_recv(File file, long size, boolean decrypt) throws IOException
     {
         fos = new FileOutputStream(file, false);
 
-        int len = Integer.MAX_VALUE;
+        int len = 1024000;
         long off = 0;
 
         while (off < size)
@@ -90,26 +112,45 @@ public class FileTransferSocket extends MessageSocket {
             int diff = (int) (size-off);
             int buf = off + len > size ? diff : len;
 
-            int checksum = 0;
-            String msg = "";
-            byte[] bytes;
+            int checksum = 0, ack = 0;
+            byte[] bytes = new byte[0];
 
             do{
 
-                bytes = recv_all(buf);
+                if (ByteTool.byteArrayToInt(recv_all(ACK_BYTE_ARRAY_SIZE)) == AckType.PREPARE) {
+                    send(ByteTool.intToByteArray(AckType.ACK, ACK_BYTE_ARRAY_SIZE));
+                    if (ByteTool.byteArrayToInt(recv_all(ACK_BYTE_ARRAY_SIZE)) != AckType.ACK)
+                        continue;
+                    System.out.println("Ready to receive...");
+                }
+                else
+                    continue;
 
-                checksum = ByteChecker.ckecksum(bytes);
+                if (decrypt && rsa != null)
+                {
+                    try {
+                        bytes = recv_encrypted();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                    bytes = recv_all(buf);
 
-                send_msg(Integer.toString(checksum));
+                checksum = ByteTool.ckecksum(bytes);
 
-                msg = recv_msg();
+                System.out.println("Receiver's checksum: " + checksum);
 
-                if (msg.contains("file transfer failed"))
+                send(ByteTool.intToByteArray(checksum, INT_BYTE_ARRAY_SIZE));
+
+                ack = ByteTool.byteArrayToInt(recv_all(ACK_BYTE_ARRAY_SIZE));
+
+                if (ack == AckType.ABORT)
                 {
                     throw new IOException("File failed to come in correctly too many times, aborting...");
                 }
 
-            } while (msg.equals("Ok"));
+            } while (ack == AckType.RETRY);
 
             fos.write(bytes, 0, buf);
 
@@ -121,30 +162,39 @@ public class FileTransferSocket extends MessageSocket {
         return file;
     }
 
-    private File single_stage_recv(File file, int size) throws IOException
+    private File single_stage_recv(File file, int size, boolean decrypt) throws IOException
     {
         fos = new FileOutputStream(file, false);
 
-        int checksum = 0;
+        int checksum = 0, ack = 0;
         String msg = "";
-        byte[] bytes;
+        byte[] bytes = new byte[0];
 
         do{
 
-            bytes = recv_all(size);
+            if (decrypt && rsa != null)
+            {
+                try {
+                    bytes = recv_encrypted();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+                bytes = recv_all(size);
 
-            checksum = ByteChecker.ckecksum(bytes);
+            checksum = ByteTool.ckecksum(bytes);
 
-            send_msg(Integer.toString(checksum));
+            send(ByteTool.intToByteArray(checksum, INT_BYTE_ARRAY_SIZE));
 
-            msg = recv_msg();
+            ack = ByteTool.byteArrayToInt(recv_all(ACK_BYTE_ARRAY_SIZE));
 
-            if (msg.contains("file transfer failed"))
+            if (ack == AckType.ABORT)
             {
                 throw new IOException("File failed to come in correctly too many times, aborting...");
             }
 
-        } while (msg.equals("Ok"));
+        } while (ack == AckType.RETRY);
 
         fos.write(bytes, 0, size);
 
@@ -154,7 +204,7 @@ public class FileTransferSocket extends MessageSocket {
     }
 
     /**
-     * File can be of any type and size.
+     * Sends a file over a socket connection
      * Method uses protocol--tells receive how file is being sent,
      *                                         file name, file size.
      * Method locks sending and receiving until file is transferred
@@ -162,7 +212,7 @@ public class FileTransferSocket extends MessageSocket {
      * Method checksums bytes it sends and compares it to the checksum
      *                  that the receiver sends back to ensure bytes were
      *                  transferred accurately
-     * @param file  File that is to be transferred
+     * @param file  File that is to be transferred, arbitrary size, any file type
      * @throws InvalidParameterException Throws exception if file does not point to a file
      * @throws IOException Throws exception if file cannot be found, or cannot be read, or cannot successfully send bytes
      */
@@ -175,29 +225,60 @@ public class FileTransferSocket extends MessageSocket {
 
             fis = new FileInputStream(file);
 
-            if (file.length() > Integer.MAX_VALUE)
-                multi_stage_send(file);
+            long freeMemory = Runtime.getRuntime().freeMemory();
+            long fileLength = file.length();
+
+            if (fileLength > Integer.MAX_VALUE || fileLength > freeMemory)
+                multi_stage_send(file, false);
             else
-                single_stage_send(file);
+                single_stage_send(file, false);
 
             fis.close();
         }
     }
 
-    private void multi_stage_send(File file) throws IOException
+    /**
+     * Encrypts and sends file over a socket connection
+     * Functions the same as send_file(file)
+     * @param file  File that is to be trasferred, arbitrary size, any file type
+     * @throws InvalidParameterException Throws exception if file does not point to a file
+     * @throws IOException Throws exception if file cannot be found, or cannot be read, or cannot successfully send bytes
+     */
+    public void send_file_encrypted(File file) throws InvalidParameterException, IOException {
+        synchronized (locker) {
+            if (!file.exists())
+                throw new FileNotFoundException("File does not exist");
+            if (!file.isFile())
+                throw new InvalidParameterException("Parameter must be a file");
+
+            fis = new FileInputStream(file);
+
+            long freeMemory = Runtime.getRuntime().freeMemory();
+            long fileLength = file.length();
+
+            if (fileLength > Integer.MAX_VALUE || fileLength > freeMemory)
+                multi_stage_send(file, true);
+            else
+                single_stage_send(file, true);
+
+            fis.close();
+        }
+    }
+
+    private void multi_stage_send(File file, boolean encrypt) throws IOException
     {
         final long filesize = file.length();
-        final int len = Integer.MAX_VALUE;
+        final int len = 1024000;
         long off = 0;
 
 
         {   // tells listener how file is being transferred, file name, and file size
             send_msg(TransferType.MULTISTAGE);
-            recv_msg();
+            recv_all(ACK_BYTE_ARRAY_SIZE);
             send_msg(file.getName());
-            recv_msg();
-            send_msg(Long.toString(filesize));
-            recv_msg();
+            recv_all(ACK_BYTE_ARRAY_SIZE);
+            send(ByteTool.longToByteArray(filesize, LONG_BYTE_ARRAY_SIZE));
+            recv_all(ACK_BYTE_ARRAY_SIZE);
         }
 
         while (off < filesize)
@@ -208,42 +289,55 @@ public class FileTransferSocket extends MessageSocket {
             int checksum = 0, fail_count = 0;
             int recv_checksum = -1;
 
+            byte[] bytes = new byte[buf];
+
+            int available = fis.available();
+
+            bytes = getBytesFromFile(bytes, buf);
+
+            available = fis.available();
+
+            checksum = ByteTool.ckecksum(bytes);
+
+            System.out.println("Sender's checksum:   " + checksum);
+
             do {
+                send(ByteTool.intToByteArray(AckType.PREPARE, ACK_BYTE_ARRAY_SIZE));
 
-                byte[] bytes = new byte[buf];
+                if (ByteTool.byteArrayToInt(recv_all(ACK_BYTE_ARRAY_SIZE)) != AckType.ACK)
+                    continue;
+                else {
+                    send(ByteTool.intToByteArray(AckType.ACK, ACK_BYTE_ARRAY_SIZE));
+                    System.out.println("Ready to send...");
+                }
 
-                checksum = ByteChecker.ckecksum(bytes);
+                if (encrypt && rsa != null)
+                    send_encrypted(bytes);
+                else
+                    send(bytes);
 
-                int available = fis.available();
-
-                fis.read(bytes);
-
-                available = fis.available();
-
-                send_all(bytes, buf);
-
-                recv_checksum = Integer.parseInt(recv_msg());
+                recv_checksum = ByteTool.byteArrayToInt(recv_all(INT_BYTE_ARRAY_SIZE));
 
                 if (checksum != recv_checksum) {
                     if (fail_count == 3)
                     {
-                        send_msg("Too many mismatches, file transfer failed");
+                        send(ByteTool.intToByteArray(AckType.ABORT, ACK_BYTE_ARRAY_SIZE));
                         throw new IOException("File failed to transfer correctly, aborting...");
                     }
 
-                    send_msg("mismatch, retrying");
+                    send(ByteTool.intToByteArray(AckType.RETRY, ACK_BYTE_ARRAY_SIZE));
                     fail_count++;
                 }
 
             } while (checksum != recv_checksum);
 
-            send_msg("Ok");
+            send(ByteTool.intToByteArray(AckType.CONTINUE, ACK_BYTE_ARRAY_SIZE));
 
             off += len;
         }
     }
 
-    private void single_stage_send(File file) throws IOException
+    private void single_stage_send(File file, boolean encrypt) throws IOException
     {
         final int filesize = (int) file.length();
 
@@ -253,7 +347,7 @@ public class FileTransferSocket extends MessageSocket {
             recv_msg();
             send_msg(file.getName());
             recv_msg();
-            send_msg(Long.toString(filesize));
+            send(ByteTool.longToByteArray(filesize, LONG_BYTE_ARRAY_SIZE));
             recv_msg();
         }
 
@@ -261,35 +355,46 @@ public class FileTransferSocket extends MessageSocket {
         int recv_checksum = -1;
         int fail_count = 0;
 
+        byte[] bytes = new byte[filesize];
+
+        int available = fis.available();
+
+        fis.read(bytes);
+
+        available = fis.available();
+
+        checksum = ByteTool.ckecksum(bytes);
+
         do {
+            if (encrypt && rsa != null)
+                send_encrypted(bytes);
+            else
+                send(bytes);
 
-            byte[] bytes = new byte[filesize];
-
-            checksum = ByteChecker.ckecksum(bytes);
-
-            int available = fis.available();
-
-            fis.read(bytes);
-
-            available = fis.available();
-
-            send_all(bytes, filesize);
-
-            recv_checksum = Integer.parseInt(recv_msg());
+            recv_checksum = ByteTool.byteArrayToInt(recv_all(INT_BYTE_ARRAY_SIZE));
 
             if (checksum != recv_checksum) {
                 if (fail_count == 3)
                 {
-                    send_msg("Too many mismatches, file transfer failed");
+                    send(ByteTool.intToByteArray(AckType.ABORT, ACK_BYTE_ARRAY_SIZE));
                     throw new IOException("File failed to transfer correctly, aborting...");
                 }
 
-                send_msg("mismatch, retrying");
+                send(ByteTool.intToByteArray(AckType.RETRY, ACK_BYTE_ARRAY_SIZE));
                 fail_count++;
             }
 
         } while (checksum != recv_checksum);
 
-        send_msg("Ok");
+        send(ByteTool.intToByteArray(AckType.CONTINUE, ACK_BYTE_ARRAY_SIZE));
+    }
+
+    private byte[] getBytesFromFile(byte[] bytes, int len) throws IOException {
+        for (int i = 0; i < len; ++i)
+        {
+            bytes[i] = (byte) fis.read();
+        }
+
+        return bytes;
     }
 }

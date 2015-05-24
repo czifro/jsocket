@@ -1,6 +1,6 @@
 /*
 
-    Copyright (C) 2015  William Czifro
+    Copyright (C) 2015  Czifro Development
 
     This file is part of the jsock.net package
 
@@ -21,7 +21,9 @@
 
 package jsock.net;
 
-import jsock.crypto.AES;
+import jsock.crypto.RSA;
+import jsock.interfaces.IEncryptSocket;
+import jsock.util.ByteTool;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -33,15 +35,16 @@ import java.net.Socket;
 /**
  * Created by czifro on 12/29/14. A wrapper for Socket connection
  * @author Will Czifro
- * @version 0.2.0
+ * @version 0.3.0
  */
-public class JSocket {
+public class JSocket implements IEncryptSocket {
 
     protected DataOutputStream out;
     protected DataInputStream in;
     protected Socket conn;
-    protected AES aes;
-    protected boolean encrypt_decrypt = false;
+    protected RSA rsa;
+
+    private Object jLocker = new Object();
 
     /**
      * Default size is 96, increase to read and write larger chunks
@@ -67,14 +70,8 @@ public class JSocket {
     public byte[] recv(){
         byte[] bytes = new byte[1024];
         try {
-            if (aes != null && encrypt_decrypt)
-                bytes = aes.decrypt(bytes);
             in.read(bytes);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
             e.printStackTrace();
         }
         return bytes;
@@ -91,20 +88,8 @@ public class JSocket {
         byte[] bytes = new byte[size];
         int off = 0;
         try {
-            // reads in chunks at a time
-            while (in.available() > 0)
-            {
-                int len = (off + 96 > size ? size - off : 96);
-                if (aes != null && encrypt_decrypt)
-                    bytes = aes.decrypt(bytes);
-                in.read(bytes, off, len);
-                off += 96;
-            }
+            in.read(bytes, off, size);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
             e.printStackTrace();
         }
         return bytes;
@@ -118,62 +103,11 @@ public class JSocket {
     public void send(byte[] b)
     {
         try {
-            if (aes != null && encrypt_decrypt)
-                b = aes.encrypt(b);
             out.write(b);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
         }
-    }
-
-    /**
-     * Sends large byte[] in chunks
-     *
-     * @param b   Large byte[]
-     * @param len length of byte[]
-     */
-    public void send_all(byte[] b, int len)
-    {
-        int off = 0;
-        try {
-            // writes chunks to the output stream
-            while (out.size() < len)
-            {
-                int length = (off +CHUNK_SIZE > len ? len - off : CHUNK_SIZE);
-                if (aes != null && encrypt_decrypt)
-                    b = aes.encrypt(b);
-                out.write(b, off, length);
-                off += CHUNK_SIZE;
-            }
-            out.flush();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setAES(AES aes)
-    {
-        this.aes = aes;
-    }
-
-    public void encryptConnection(boolean useEncryption)
-    {
-        encrypt_decrypt = useEncryption;
-    }
-
-    public boolean connectionEncrypted()
-    {
-        return encrypt_decrypt;
     }
 
     /**
@@ -198,4 +132,64 @@ public class JSocket {
     {
         return conn.isClosed();
     }
+
+    public static void main(String [] args)
+    {}
+
+    @Override
+    public void encryptConnection(RSA rsa) {
+        this.rsa = rsa;
+    }
+
+    @Override
+    public boolean connectionIsEncrypted() {
+        return rsa != null;
+    }
+
+    @Override
+    public byte[] recv_encrypted() throws Exception {
+
+        try {
+            byte[] b_len = recv_all(4);
+
+            send(b_len);
+
+            int len = ByteTool.byteArrayToInt(b_len);
+
+            byte[] bytes = recv_all(len);
+
+            bytes = rsa.decrypt(bytes);
+
+            return bytes;
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        }
+        throw new Exception("Failed to receive encrypted bytes");
+    }
+
+    @Override
+    public void send_encrypted(byte[] bytes) {
+        synchronized (jLocker)
+        {
+            try {
+                bytes = rsa.encrypt(bytes);
+
+                byte[] len = ByteTool.intToByteArray(bytes.length, 4);
+
+                send(len);
+
+                recv();
+
+                send(bytes);
+
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

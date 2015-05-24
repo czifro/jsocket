@@ -1,23 +1,24 @@
 /*
 
-    Copyright (C) 2015  William Czifro
+    Copyright (C) 2015  Czifro Development
 
-    This file is part of the net.jsock package
+    This file is part of the jsock.net package
 
-    The net.jsock package is free software: you can redistribute it and/or modify
+    The jsock.net package is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    The net.jsock package is distributed in the hope that it will be useful,
+    The jsock.net package is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with the net.jsock package.  If not, see <http://www.gnu.org/licenses/>.
+    along with the jsock.net package.  If not, see <http://www.gnu.org/licenses/>.
 
  */
+
 
 package jsock.net;
 
@@ -33,6 +34,7 @@ import java.net.Socket;
  * @author William Czifro
  * @version 0.1.0
  */
+
 public class ObjectSocket extends MessageSocket {
 
     private Gson gson;
@@ -44,6 +46,7 @@ public class ObjectSocket extends MessageSocket {
      * @param conn java.net.Socket that is wrapped around
      * @throws IOException Throws IOException if I/O streams cannot be opened
      */
+
     public ObjectSocket(Socket conn) throws IOException {
         super(conn);
 
@@ -56,11 +59,12 @@ public class ObjectSocket extends MessageSocket {
      * @param type Class type JSONString should be converted to.
      * @return     returns null if conversion JSONString to Object failed
      */
+
     public Object recv_object(Class<?> type)
     {
         String s_size = recv_msg();
         send_msg("Ok");
-        String json = recv_all_msg(Integer.parseInt(s_size));
+        String json = recv_large_msg(Integer.parseInt(s_size));
         try {
             return gson.fromJson(json, type);
         } catch (JsonSyntaxException e) {
@@ -75,6 +79,7 @@ public class ObjectSocket extends MessageSocket {
      *
      * @return   returns null if no new failedJson exists
      */
+
     public String recover_failed_json(){
         String t = failedJson;
         failedJson = null;
@@ -86,11 +91,12 @@ public class ObjectSocket extends MessageSocket {
      *
      * @return   JSONString
      */
+
     public String recv_object_asString()
     {
         String s_size = recv_msg();
         send_msg("Ok");
-        String json = recv_all_msg(Integer.parseInt(s_size));
+        String json = recv_large_msg(Integer.parseInt(s_size));
         return json;
     }
 
@@ -101,6 +107,7 @@ public class ObjectSocket extends MessageSocket {
      * @param type  Class type of obj
      * @throws java.io.IOException Throws IOException if conversion fails
      */
+
     public void send_object(Object obj, Type type) throws IOException {
         String json = null;
 
@@ -112,3 +119,4 @@ public class ObjectSocket extends MessageSocket {
     }
 
 }
+
