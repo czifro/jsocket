@@ -1,6 +1,6 @@
 /*
 
-    Copyright (C) 2015  William Czifro
+    Copyright (C) 2015  Czifro Development
 
     This file is part of the jsock.crypto package
 
@@ -21,8 +21,8 @@
 
 package jsock.crypto;
 
-import jsock.enums.StringCleanType;
-import jsock.util.StringCleaner;
+import jsock.enums.StringToolType;
+import jsock.util.StringTool;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -30,39 +30,34 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 
 /**
  * Created by czifro on 1/23/15. Uses AES algorithm for encrypting and decrypting
  * @author William Czifro
- * @version 0.1.0
+ * @version 0.2.0
  */
-public class AES {
+public class RSA {
 
-    private final String aes = "AES";
-    private final String privateKey;
+    private final static String ALGO = "RSA";
+    private final KeyPair kp;
 
-    private final Key key;
     private final Cipher encrypt_cipher, decrypt_cipher;
 
     /**
      * Initializes ciphers to use specified key for encrypting and decrypting
-     * @param privateKey                 The key in which bytes will be encrypted with
+     * @param keyPair                    The key pair of public and private keys
      * @throws NoSuchPaddingException    Thrown if Cipher failed to initialize
      * @throws NoSuchAlgorithmException  Thrown if attempting to use invalid algorithm, AES is used
      * @throws InvalidKeyException       Thrown if key is not valid
      */
-    public AES(String privateKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
-        this.privateKey = privateKey;
-        key = new SecretKeySpec(privateKey.getBytes(), aes);
-        encrypt_cipher = Cipher.getInstance(aes);
-        encrypt_cipher.init(Cipher.ENCRYPT_MODE, key);
-        decrypt_cipher = Cipher.getInstance(aes);
-        decrypt_cipher.init(Cipher.DECRYPT_MODE, key);
+    public RSA(KeyPair keyPair) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+        kp = keyPair;
+        encrypt_cipher = Cipher.getInstance(ALGO);
+        encrypt_cipher.init(Cipher.ENCRYPT_MODE, kp.getPublic());
+        decrypt_cipher = Cipher.getInstance(ALGO);
+        decrypt_cipher.init(Cipher.DECRYPT_MODE, kp.getPrivate());
     }
 
     /**
@@ -112,14 +107,34 @@ public class AES {
     public String decrypt_string(String s) throws IOException, BadPaddingException, IllegalBlockSizeException {
         byte[] decoded = new BASE64Decoder().decodeBuffer(s);
         byte[] decrypted_bytes = decrypt(decoded);
-        return StringCleaner.cleanString(new String(decrypted_bytes, "UTF-8"), StringCleanType.ONLY_NULLS);
+        return StringTool.cleanString(new String(decrypted_bytes, "UTF-8"), StringToolType.ONLY_NULLS);
     }
 
-    /**
-     * @return Returns the private key being used
-     */
-    public String getPrivateKey()
-    {
-        return privateKey;
+    public static KeyPair generateKeyPair(int keysize) throws InvalidParameterException, NoSuchAlgorithmException {
+        if (keysize == 1024 || keysize == 2048 || keysize == 4096)
+        {
+            KeyPairGenerator kpg = KeyPairGenerator.getInstance(ALGO);
+            kpg.initialize(keysize);
+            KeyPair kp = kpg.generateKeyPair();
+
+            return kp;
+        }
+        throw new  InvalidParameterException("Invalid length");
     }
+
+    public PublicKey getPublicKey()
+    {
+        return kp.getPublic();
+    }
+
+    public PrivateKey getPrivateKey()
+    {
+        return kp.getPrivate();
+    }
+
+    public KeyPair getKeyPair()
+    {
+        return kp;
+    }
+
 }

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/jsocket.iml" filepath="$PROJECT_DIR$/jsocket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../packageTest/packageTest.iml" filepath="$PROJECT_DIR$/../packageTest/packageTest.iml" />
     </modules>
   </component>
 </project>

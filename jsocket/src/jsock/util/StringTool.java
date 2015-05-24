@@ -1,6 +1,6 @@
 /*
 
-    Copyright (C) 2015  William Czifro
+    Copyright (C) 2015  Czifro Development
 
     This file is part of the jsock.util package
 
@@ -21,14 +21,14 @@
 
 package jsock.util;
 
-import jsock.enums.StringCleanType;
+import jsock.enums.StringToolType;
 
 /**
  * Created by czifro on 1/20/15. StringCleaner can be used to clean a string of certain characters
  * @author William Czifro
  * @version 0.1.0
  */
-public class StringCleaner {
+public class StringTool {
 
     /**
      * Removes null characters (\0) from a string
@@ -54,7 +54,7 @@ public class StringCleaner {
      * @param type  Specifies which character preset to remove
      * @return      Cleansed string
      */
-    public static String cleanString(String s, StringCleanType type)
+    public static String cleanString(String s, StringToolType type)
     {
         switch (type)
         {

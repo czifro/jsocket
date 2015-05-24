@@ -1,6 +1,6 @@
 /*
 
-    Copyright (C) 2015  William Czifro
+    Copyright (C) 2015  Czifro Development
 
     This file is part of the jsock.util package
 
@@ -21,6 +21,7 @@
 
 package jsock.util;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  * @author William Czifro
  * @version 0.1.0
  */
-public class ByteChecker {
+public class ByteTool {
 
 
     /**
@@ -75,5 +76,25 @@ public class ByteChecker {
         }
 
         return c_sum;
+    }
+
+    public static byte[] intToByteArray(int val, int arraySize)
+    {
+        return ByteBuffer.allocate(arraySize).putInt(val).array();
+    }
+
+    public static int byteArrayToInt(byte[] bytes)
+    {
+        return ByteBuffer.wrap(bytes).getInt();
+    }
+
+    public static byte[] longToByteArray(long val, int arraySize)
+    {
+        return ByteBuffer.allocate(arraySize).putLong(val).array();
+    }
+
+    public static long byteArrayToLong(byte[] bytes)
+    {
+        return ByteBuffer.wrap(bytes).getLong();
     }
 }

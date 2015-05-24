@@ -1,6 +1,6 @@
 /*
 
-    Copyright (C) 2015  William Czifro
+    Copyright (C) 2015  Czifro Development
 
     This file is part of the jsock.enums package
 
@@ -22,12 +22,12 @@
 package jsock.enums;
 
 /**
- * Created by czifro on 1/20/15. Enums for different string cleaning options
- * @author William Czifro
- * @version 0.1.0
+ * Created by czifro on 2/7/15.
  */
-public enum StringCleanType {
-    ONLY_NULLS,
-    NON_ASCII,
-    NON_UNICODE
+public class AckType {
+    public final static int ACK = 1;
+    public final static int PREPARE = 2;
+    public final static int CONTINUE = 3;
+    public final static int RETRY = 4;
+    public final static int ABORT = 5;
 }
