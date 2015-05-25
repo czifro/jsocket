@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/jsocket.iml" filepath="$PROJECT_DIR$/jsocket.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../packageTest/packageTest.iml" filepath="$PROJECT_DIR$/../packageTest/packageTest.iml" />
-    </modules>
-  </component>
-</project>
