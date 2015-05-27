@@ -13,7 +13,20 @@ The JSocket repository is released and the GNU GPL license. The root package jso
 Summary
 ----------
 
-JSocket was developed with those who create TCP servers using Java in mind. This package includes classes that allow users to send whole strings, objects, and can transfer any file type of arbitrary size. These classes have most of the grunt work done to make as simple as calling a single method. To see how it is used: click the link in the "How to Use" section.
+JSocket was developed to make socket programming in Java simpler. JSocket currently only focuses on TCP connections. What makes this library useful is that it makes cross-platform and cross-language TCP connections easier to deal with on the Java side. This library attempts to ensure clean messages come through that come from another platform/language. In some instances, say C# client -> Java server, a "dirty" message will come through. The Jsocket library can clean the message and return to a developer the correct message. This library includes various feature that can send anything from a simple string to a complex object. Features also include RSA encryption. Generate your own private and public keys.
+
+
+How to Use
+-----------
+
+Link to tutorial: https://github.com/czifro/JSocket/wiki/Tutorial
+
+
+Build History
+--------------
+
+Please use following link: https://github.com/czifro/JSocket/wiki/Listed-Releases
+
 
 ===========
 
@@ -23,21 +36,6 @@ Credit
 
 The ObjectSocket class is functional partly due to Google's [Gson package for Java](https://code.google.com/p/google-gson/). This package is great for converting any object to JSON and vice versa.
 
-===========
-
-
-How to Use
------------
-
-Link to tutorial: https://github.com/czifro/JSocket/wiki/Tutorial
-
-===============
-
-
-Build History
---------------
-
-Please use following link: https://github.com/czifro/JSocket/wiki/Listed-Releases
    
 =====================
 
