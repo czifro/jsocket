@@ -55,7 +55,8 @@ public class PackageUnitTest {
                     } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
-                        jsocks[0].close();
+                        if (jsocks[0] != null)
+                            jsocks[0].close();
                     }
                 }
             };
@@ -102,7 +103,8 @@ public class PackageUnitTest {
                     } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
-                        mSocks[0].close();
+                        if (mSocks[0] != null)
+                            mSocks[0].close();
                     }
                 }
             };
@@ -150,7 +152,8 @@ public class PackageUnitTest {
                     } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
-                        oSocks[0].close();
+                        if (oSocks[0] != null)
+                            oSocks[0].close();
                     }
                 }
             };
@@ -238,7 +241,8 @@ public class PackageUnitTest {
                     } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
-                        mSocks[0].close();
+                        if (mSocks[0] != null)
+                            mSocks[0].close();
                     }
                 }
             };
