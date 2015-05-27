@@ -1,4 +1,4 @@
 sudo: false
 language: java
-before_install: mvn install
+before_install: cd jsocket; mvn install
 script: mvn test
