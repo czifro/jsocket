@@ -23,16 +23,26 @@ import java.security.NoSuchAlgorithmException;
 public class PackageUnitTest {
     private final int PORT = 50000;
     private ServerSocket server;
+    private boolean isInit = true;
+    private int testCount = 0;
+
+    private void initialize() throws IOException {
+        if (isInit)
+            return;
+        isInit = true;
+        server = new ServerSocket(PORT);
+    }
 
     @Test
     public void testJsocket() {
+        testCount++;
+        final int val = 31; // value to be sent
+        final Socket[] conns = new Socket[2];
+        final JSocket[] jsocks = new JSocket[2];
         try {
-            final int val = 31; // value to be sent
-            server = new ServerSocket(PORT);
+            initialize();
             SocketAddress addr = server.getLocalSocketAddress();
             String ip = ((InetSocketAddress)addr).getAddress().getHostAddress();
-            final Socket[] conns = new Socket[2];
-            final JSocket[] jsocks = new JSocket[2];
             Thread serverThread = new Thread(){
                 public void run()
                 {
@@ -42,10 +52,10 @@ public class PackageUnitTest {
 
                         Assert.assertFalse(val != ByteTool.byteArrayToInt(jsocks[0].recv()));
 
-                        jsocks[0].close();
-
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } finally {
+                        jsocks[0].close();
                     }
                 }
             };
@@ -60,8 +70,10 @@ public class PackageUnitTest {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            if (jsocks[1] != null)
+                jsocks[1].close();
             try {
-                if (server != null)
+                if (server != null && testCount == 4)
                     server.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -70,12 +82,13 @@ public class PackageUnitTest {
     }
     @Test
     public void testMessageSocket() {
+        testCount++;
+        final Socket[] conns = new Socket[2];
+        final MessageSocket[] mSocks = new MessageSocket[2];
         try {
-            server = new ServerSocket(PORT);
+            initialize();
             SocketAddress addr = server.getLocalSocketAddress();
             String ip = ((InetSocketAddress)addr).getAddress().getHostAddress();
-            final Socket[] conns = new Socket[2];
-            final MessageSocket[] mSocks = new MessageSocket[2];
             Thread serverThread = new Thread(){
                 public void run()
                 {
@@ -86,10 +99,10 @@ public class PackageUnitTest {
                         String msg = mSocks[0].recv_msg();
 
                         Assert.assertEquals("2655", msg);
-
-                        mSocks[0].close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } finally {
+                        mSocks[0].close();
                     }
                 }
             };
@@ -105,8 +118,10 @@ public class PackageUnitTest {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            if (mSocks[1] != null)
+                mSocks[1].close();
             try {
-                if (server != null)
+                if (server != null && testCount == 4)
                     server.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -115,13 +130,14 @@ public class PackageUnitTest {
     }
     @Test
     public void testObjectSocket() {
+        testCount++;
+        final Person p = new Person(22, "12/08/1992", "Will");
+        final Socket[] conns = new Socket[2];
+        final ObjectSocket[] oSocks = new ObjectSocket[2];
         try {
-            final Person p = new Person(22, "12/08/1992", "Will");
-            server = new ServerSocket(PORT);
+            initialize();
             SocketAddress addr = server.getLocalSocketAddress();
             String ip = ((InetSocketAddress)addr).getAddress().getHostAddress();
-            final Socket[] conns = new Socket[2];
-            final ObjectSocket[] oSocks = new ObjectSocket[2];
             Thread serverThread = new Thread(){
                 public void run()
                 {
@@ -131,10 +147,10 @@ public class PackageUnitTest {
                         Person rP = (Person) oSocks[0].recv_object(Person.class);
 
                         Assert.assertFalse(!p.areEqual(rP));
-
-                        oSocks[0].close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } finally {
+                        oSocks[0].close();
                     }
                 }
             };
@@ -150,8 +166,10 @@ public class PackageUnitTest {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            if (oSocks[1] != null)
+                oSocks[1].close();
             try {
-                if (server != null)
+                if (server != null && testCount == 4)
                     server.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -162,6 +180,7 @@ public class PackageUnitTest {
     @Test
     public void testEncryption()
     {
+        testCount++;
         try {
             KeyPair kp = RSA.generateKeyPair(1024);
             String plainText = "Hello World!";
@@ -182,20 +201,27 @@ public class PackageUnitTest {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (server != null && testCount == 4)
+                    server.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
-    public void testEncryptedConnection()
-    {
+    public void testEncryptedConnection() {
+        testCount++;
+        final Socket[] conns = new Socket[2];
+        final MessageSocket[] mSocks = new MessageSocket[2];
         try {
-            server = new ServerSocket(PORT);
+            initialize();
             SocketAddress addr = server.getLocalSocketAddress();
             String ip = ((InetSocketAddress)addr).getAddress().getHostAddress();
             KeyPair kp = RSA.generateKeyPair(1024);
             final String plainText = "Unencrypted Text";
-            final Socket[] conns = new Socket[2];
-            final MessageSocket[] mSocks = new MessageSocket[2];
             final RSA rsa = new RSA(kp);
             Thread serverThread = new Thread()
             {
@@ -211,6 +237,8 @@ public class PackageUnitTest {
                         Assert.assertEquals(msg, plainText);
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } finally {
+                        mSocks[0].close();
                     }
                 }
             };
@@ -229,6 +257,15 @@ public class PackageUnitTest {
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();
+        }finally {
+            if (mSocks[1] != null)
+                mSocks[1].close();
+            try {
+                if (server != null && testCount == 4)
+                    server.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
