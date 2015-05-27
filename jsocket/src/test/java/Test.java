@@ -8,9 +8,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -28,7 +26,7 @@ public class Test {
         System.out.println("Starting test...");
 
         Test t = new Test();
-        //t.testMessageSocket();
+        t.testMessageSocket();
         //t.testObjectSocket();
         //t.testFileTransferSocket();
         //t.testEncryption();
@@ -40,6 +38,8 @@ public class Test {
     {
         try {
             server = new ServerSocket(PORT);
+            SocketAddress addr = server.getLocalSocketAddress();
+            String ip = ((InetSocketAddress)addr).getAddress().getHostAddress();
             final Socket[] conns = new Socket[2];
             final MessageSocket[] mSocks = new MessageSocket[2];
             Thread serverThread = new Thread(){
@@ -62,7 +62,7 @@ public class Test {
             };
             serverThread.start();
 
-            conns[1] = new Socket("10.0.0.32", PORT);
+            conns[1] = new Socket(ip, PORT);
             mSocks[1] = new MessageSocket(conns[1]);
 
             mSocks[1].send_msg("2655");
