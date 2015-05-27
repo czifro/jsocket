@@ -19,7 +19,7 @@
 
  */
 
-package jsock.net.ftp;
+/*package jsock.net.ftp;
 
 import jsock.enums.AckType;
 import jsock.enums.TransferType;
@@ -30,11 +30,11 @@ import java.io.*;
 import java.net.Socket;
 import java.security.InvalidParameterException;
 
-/**
+*//**
  * Created by czifro on 1/17/15. FileTransferSocket allows for files to be sent across a socket connection
  * @author William Czifro
  * @version 0.2.0
- */
+ *//*
 public class FileTransferSocket extends MessageSocket {
 
     private FileInputStream fis;
@@ -45,17 +45,17 @@ public class FileTransferSocket extends MessageSocket {
     private final int INT_BYTE_ARRAY_SIZE = 4;
     private final int ACK_BYTE_ARRAY_SIZE = 4;
 
-    /**
+    *//**
      * Wraps around a Socket connection and opens I/O streams
      *
      * @param conn A Socket connection
      * @throws java.io.IOException Throws IOException if I/O streams cannot be opened
-     */
+     *//*
     public FileTransferSocket(Socket conn) throws IOException {
         super(conn);
     }
 
-    /**
+    *//**
      * Receives a file of any type and arbitrary size.
      * An app protocol is used, complements send_file() method
      * Method locks connection to ensure file is received uninterruptedly
@@ -63,7 +63,7 @@ public class FileTransferSocket extends MessageSocket {
      * @param folderPath Path to folder file is to be written to
      * @return     File object that points to saved file
      * @throws java.io.IOException Throws exception if a file stream cannot be opened, or cannot successfully receive bytes
-     */
+     *//*
     public File recv_file(String folderPath) throws IOException {
         synchronized (locker) {
             String transfer_type = recv_msg();
@@ -203,7 +203,7 @@ public class FileTransferSocket extends MessageSocket {
         return file;
     }
 
-    /**
+    *//**
      * Sends a file over a socket connection
      * Method uses protocol--tells receive how file is being sent,
      *                                         file name, file size.
@@ -215,7 +215,7 @@ public class FileTransferSocket extends MessageSocket {
      * @param file  File that is to be transferred, arbitrary size, any file type
      * @throws java.security.InvalidParameterException Throws exception if file does not point to a file
      * @throws java.io.IOException Throws exception if file cannot be found, or cannot be read, or cannot successfully send bytes
-     */
+     *//*
     public void send_file(File file) throws InvalidParameterException, IOException {
         synchronized (locker) {
             if (!file.exists())
@@ -237,13 +237,13 @@ public class FileTransferSocket extends MessageSocket {
         }
     }
 
-    /**
+    *//**
      * Encrypts and sends file over a socket connection
      * Functions the same as send_file(file)
      * @param file  File that is to be trasferred, arbitrary size, any file type
      * @throws java.security.InvalidParameterException Throws exception if file does not point to a file
      * @throws java.io.IOException Throws exception if file cannot be found, or cannot be read, or cannot successfully send bytes
-     */
+     *//*
     public void send_file_encrypted(File file) throws InvalidParameterException, IOException {
         synchronized (locker) {
             if (!file.exists())
@@ -397,4 +397,4 @@ public class FileTransferSocket extends MessageSocket {
 
         return bytes;
     }
-}
+}*/
