@@ -23,19 +23,14 @@ import java.security.NoSuchAlgorithmException;
 public class PackageUnitTest {
     private final int PORT = 50000;
     private ServerSocket server;
-    private boolean isInit = true;
-    private int testCount = 0;
 
     private void initialize() throws IOException {
-        if (isInit)
-            return;
-        isInit = true;
-        server = new ServerSocket(PORT);
+        if (server == null || server.isClosed())
+            server = new ServerSocket(PORT);
     }
 
     @Test
     public void testJsocket() {
-        testCount++;
         final int val = 31; // value to be sent
         final Socket[] conns = new Socket[2];
         final JSocket[] jsocks = new JSocket[2];
@@ -74,7 +69,7 @@ public class PackageUnitTest {
             if (jsocks[1] != null)
                 jsocks[1].close();
             try {
-                if (server != null && testCount == 4)
+                if (server != null)
                     server.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -83,7 +78,6 @@ public class PackageUnitTest {
     }
     @Test
     public void testMessageSocket() {
-        testCount++;
         final Socket[] conns = new Socket[2];
         final MessageSocket[] mSocks = new MessageSocket[2];
         try {
@@ -123,7 +117,7 @@ public class PackageUnitTest {
             if (mSocks[1] != null)
                 mSocks[1].close();
             try {
-                if (server != null && testCount == 4)
+                if (server != null)
                     server.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -132,7 +126,6 @@ public class PackageUnitTest {
     }
     @Test
     public void testObjectSocket() {
-        testCount++;
         final Person p = new Person(22, "12/08/1992", "Will");
         final Socket[] conns = new Socket[2];
         final ObjectSocket[] oSocks = new ObjectSocket[2];
@@ -172,7 +165,7 @@ public class PackageUnitTest {
             if (oSocks[1] != null)
                 oSocks[1].close();
             try {
-                if (server != null && testCount == 4)
+                if (server != null)
                     server.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -181,9 +174,7 @@ public class PackageUnitTest {
     }
 
     @Test
-    public void testEncryption()
-    {
-        testCount++;
+    public void testEncryption() {
         try {
             KeyPair kp = RSA.generateKeyPair(1024);
             String plainText = "Hello World!";
@@ -204,19 +195,11 @@ public class PackageUnitTest {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (server != null && testCount == 4)
-                    server.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     @Test
     public void testEncryptedConnection() {
-        testCount++;
         final Socket[] conns = new Socket[2];
         final MessageSocket[] mSocks = new MessageSocket[2];
         try {
@@ -265,7 +248,7 @@ public class PackageUnitTest {
             if (mSocks[1] != null)
                 mSocks[1].close();
             try {
-                if (server != null && testCount == 4)
+                if (server != null)
                     server.close();
             } catch (IOException e) {
                 e.printStackTrace();
