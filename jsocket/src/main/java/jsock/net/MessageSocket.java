@@ -66,7 +66,7 @@ public class MessageSocket extends JSocket {
      * Receives small message from socket and converts it to a String
      *
      * @return    message received
-     * @deprecated  replaced by recv_sanitized_msg() and recv_raw_msg()
+     * @deprecated  replaced by recvSanitizedMsg() and recvRawMsg()
      */
     public String recv_msg()
     {
@@ -93,12 +93,12 @@ public class MessageSocket extends JSocket {
 
     /**
      * Receives a message and runs a defaulted function set by
-     *      recv_sanitized_msg(Function<String, String> f, boolean persistFunction) or
+     *      recvSanitizedMsg(Function<String, String> f, boolean persistFunction) or
      *      setDefaultFunction(Function<String, String> f)
      * @return  A processed string
      * @throws java.lang.NullPointerException  Thrown if a default function has not been set
      */
-    public String recv_sanitized_msg() throws NullPointerException
+    public String recvSanitizedMsg() throws NullPointerException
     {
         if (func == null)
             throw new NullPointerException("func has not been set");
@@ -128,7 +128,7 @@ public class MessageSocket extends JSocket {
      * @param f  A function used to sanitize the received message
      * @return  A processed string
      */
-    public String recv_sanitized_msg(Function<String, String> f)
+    public String recvSanitizedMsg(Function<String, String> f)
     {
         String msg = "";
         byte[] bytes = new byte[0];
@@ -157,7 +157,7 @@ public class MessageSocket extends JSocket {
      * @param persistFunction  set to true to if function should be used by default
      * @return  A processed string
      */
-    public String recv_sanitized_msg(Function<String, String> f, boolean persistFunction)
+    public String recvSanitizedMsg(Function<String, String> f, boolean persistFunction)
     {
         if (persistFunction)
             func = f;
@@ -186,7 +186,7 @@ public class MessageSocket extends JSocket {
      * Receives a message and skips processing
      * @return  A char array of the unprocessed message
      */
-    public char[] recv_raw_msg()
+    public char[] recvRawMsg()
     {
         String msg = "";
         byte[] bytes = new byte[0];
@@ -214,7 +214,7 @@ public class MessageSocket extends JSocket {
      *
      * @param size The size to set buffer to
      * @return     message received
-     * @deprecated replaced by recv_large_sanitized_msg() and recv_large_raw_msg()
+     * @deprecated replaced by recvLargeSanitizedMsg() and recvLargeRawMsg()
      */
     public String recv_large_msg(int size)
     {
@@ -241,12 +241,12 @@ public class MessageSocket extends JSocket {
 
     /**
      * Receives a message and runs a defaulted function set by
-     *      recv_sanitized_msg(Function<String, String> f, boolean persistFunction) or
+     *      recvSanitizedMsg(Function<String, String> f, boolean persistFunction) or
      *      setDefaultFunction(Function<String, String> f)
      * @return  A processed string
      * @throws java.lang.NullPointerException  Thrown if a default function has not been set
      */
-    public String recv_large_sanitized_msg(int size) throws NullPointerException
+    public String recvLargeSanitizedMsg(int size) throws NullPointerException
     {
         if (func == null)
             throw new NullPointerException("func has not been set");
@@ -276,7 +276,7 @@ public class MessageSocket extends JSocket {
      * @param f  A function used to sanitize the received message
      * @return  A processed string
      */
-    public String recv_large_sanitized_msg(int size, Function<String, String> f)
+    public String recvLargeSanitizedMsg(int size, Function<String, String> f)
     {
         String msg = "";
         byte[] bytes = recv_all(size);
@@ -303,7 +303,7 @@ public class MessageSocket extends JSocket {
      * @param persistFunction  set to true to if function should be used by default
      * @return  A processed string
      */
-    public String recv_large_sanitized_msg(int size, Function<String, String> f, boolean persistFunction)
+    public String recvLargeSanitizedMsg(int size, Function<String, String> f, boolean persistFunction)
     {
         if (persistFunction)
             func = f;
@@ -330,7 +330,7 @@ public class MessageSocket extends JSocket {
      * Receives a message and skips processing
      * @return  A char array of the unprocessed message
      */
-    public char[] recv_large_raw_msg(int size)
+    public char[] recvLargeRawMsg(int size)
     {
         String msg = "";
         byte[] bytes = recv_all(size);

@@ -143,7 +143,7 @@ public class PackageIntegrationTests {
                         conns[0] = server.accept();
                         mSocks[0] = new MessageSocket(conns[0]);
 
-                        String msg = mSocks[0].recv_sanitized_msg(FunctionTool.sanitizationFunction(FunctionType.ONLY_NULLS));
+                        String msg = mSocks[0].recvSanitizedMsg(FunctionTool.sanitizationFunction(FunctionType.ONLY_NULLS));
 
                         Assert.assertEquals("2655", msg);
                     } catch (IOException e) {
