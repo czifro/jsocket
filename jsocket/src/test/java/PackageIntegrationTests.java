@@ -3,10 +3,12 @@
  */
 
 import jsock.crypto.RSA;
+import jsock.enums.FunctionType;
 import jsock.net.JSocket;
 import jsock.net.MessageSocket;
 import jsock.net.ObjectSocket;
 import jsock.util.ByteTool;
+import jsock.util.FunctionTool;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,17 +24,13 @@ import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 
-public class PackageUnitTest {
+public class PackageIntegrationTests {
     private final int PORT = 50000;
     private ServerSocket server;
 
     private void initialize() throws IOException {
         if (server == null || server.isClosed())
             server = new ServerSocket(PORT);
-    }
-
-    public void testString(){
-
     }
 
     @Test
@@ -98,6 +96,54 @@ public class PackageUnitTest {
                         mSocks[0] = new MessageSocket(conns[0]);
 
                         String msg = mSocks[0].recv_msg();
+
+                        Assert.assertEquals("2655", msg);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (mSocks[0] != null)
+                            mSocks[0].close();
+                    }
+                }
+            };
+            serverThread.start();
+
+            conns[1] = new Socket(ip, PORT);
+            mSocks[1] = new MessageSocket(conns[1]);
+
+            mSocks[1].send_msg("2655");
+
+            mSocks[1].close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (mSocks[1] != null)
+                mSocks[1].close();
+            try {
+                if (server != null)
+                    server.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    @Test
+    public void testMessageSocketWithFunction() {
+        final Socket[] conns = new Socket[2];
+        final MessageSocket[] mSocks = new MessageSocket[2];
+        try {
+            initialize();
+            SocketAddress addr = server.getLocalSocketAddress();
+            String ip = ((InetSocketAddress)addr).getAddress().getHostAddress();
+            Thread serverThread = new Thread(){
+                public void run()
+                {
+                    try {
+                        conns[0] = server.accept();
+                        mSocks[0] = new MessageSocket(conns[0]);
+
+                        String msg = mSocks[0].recv_sanitized_msg(FunctionTool.sanitizationFunction(FunctionType.ONLY_NULLS));
 
                         Assert.assertEquals("2655", msg);
                     } catch (IOException e) {
