@@ -66,7 +66,7 @@ public class ByteTool {
         return b;
     }
 
-    public static int ckecksum(byte[] b)
+    public static int checksum(byte[] b)
     {
         int c_sum = 0;
 

@@ -24,9 +24,10 @@ package jsock.util;
 import jsock.enums.StringToolType;
 
 /**
- * Created by czifro on 1/20/15. StringCleaner can be used to clean a string of certain characters
+ * Created by czifro on 1/20/15. StringTool can be used to clean a string of certain characters
  * @author William Czifro
- * @version 0.1.0
+ * @version 0.2.0
+ * @deprecated Consider switching to FunctionTool
  */
 public class StringTool {
 
@@ -53,6 +54,7 @@ public class StringTool {
      * @param s     String to be cleaned
      * @param type  Specifies which character preset to remove
      * @return      Cleansed string
+     * @deprecated  Replaced by sanitizationFunction(FunctionType)
      */
     public static String cleanString(String s, StringToolType type)
     {
@@ -67,4 +69,5 @@ public class StringTool {
         }
         return null;
     }
+
 }

@@ -35,7 +35,7 @@ import java.net.Socket;
 /**
  * Created by czifro on 12/29/14. A wrapper for Socket connection
  * @author Will Czifro
- * @version 0.3.0
+ * @version 0.3.1
  */
 public class JSocket implements IEncryptSocket {
 
@@ -147,26 +147,29 @@ public class JSocket implements IEncryptSocket {
     }
 
     @Override
-    public byte[] recv_encrypted() throws Exception {
+    public byte[] recv_encrypted() throws Exception
+    {
+        synchronized (jLocker)
+        {
+            try {
+                byte[] b_len = recv_all(4);
 
-        try {
-            byte[] b_len = recv_all(4);
+                send(b_len);
 
-            send(b_len);
+                int len = ByteTool.byteArrayToInt(b_len);
 
-            int len = ByteTool.byteArrayToInt(b_len);
+                byte[] bytes = recv_all(len);
 
-            byte[] bytes = recv_all(len);
+                bytes = rsa.decrypt(bytes);
 
-            bytes = rsa.decrypt(bytes);
-
-            return bytes;
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
+                return bytes;
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            }
+            throw new Exception("Failed to receive encrypted bytes");
         }
-        throw new Exception("Failed to receive encrypted bytes");
     }
 
     @Override

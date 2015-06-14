@@ -3,7 +3,9 @@
  */
 
 import jsock.crypto.RSA;
-import jsock.net.*;
+import jsock.net.JSocket;
+import jsock.net.MessageSocket;
+import jsock.net.ObjectSocket;
 import jsock.util.ByteTool;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,6 +29,10 @@ public class PackageUnitTest {
     private void initialize() throws IOException {
         if (server == null || server.isClosed())
             server = new ServerSocket(PORT);
+    }
+
+    public void testString(){
+
     }
 
     @Test
@@ -172,7 +178,6 @@ public class PackageUnitTest {
             }
         }
     }
-
     @Test
     public void testEncryption() {
         try {
@@ -197,7 +202,6 @@ public class PackageUnitTest {
             e.printStackTrace();
         }
     }
-
     @Test
     public void testEncryptedConnection() {
         final Socket[] conns = new Socket[2];

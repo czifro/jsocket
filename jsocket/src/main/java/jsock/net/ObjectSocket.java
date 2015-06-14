@@ -22,8 +22,7 @@
 
 package jsock.net;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import jsock.util.JsonTool;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -32,12 +31,11 @@ import java.net.Socket;
 /**
  * Created by czifro on 1/16/15. ObjectSocket is designed to read/write structured data on the stream.
  * @author William Czifro
- * @version 0.1.0
+ * @version 0.2.0
  */
 
 public class ObjectSocket extends MessageSocket {
 
-    private Gson gson;
     private String failedJson = null;
 
     /**
@@ -46,11 +44,8 @@ public class ObjectSocket extends MessageSocket {
      * @param conn java.net.Socket that is wrapped around
      * @throws java.io.IOException Throws IOException if I/O streams cannot be opened
      */
-
     public ObjectSocket(Socket conn) throws IOException {
         super(conn);
-
-        gson = new Gson();
     }
 
     /**
@@ -59,27 +54,23 @@ public class ObjectSocket extends MessageSocket {
      * @param type Class type JSONString should be converted to.
      * @return     returns null if conversion JSONString to Object failed
      */
-
     public Object recv_object(Class<?> type)
     {
         String s_size = recv_msg();
         send_msg("Ok");
         String json = recv_large_msg(Integer.parseInt(s_size));
-        try {
-            return gson.fromJson(json, type);
-        } catch (JsonSyntaxException e) {
-            e.printStackTrace();
-            failedJson = json;
-        }
-        return null;
+        Object obj = JsonTool.fromJson(json, type);
+        if (obj == null)
+            failedJson = JsonTool.failedJson;
+        return obj;
     }
 
     /**
      * Returns JSONString that could not be converted to Object
      *
-     * @return   returns null if no new failedJson exists
+     * @return      returns null if no new failedJson exists
+     * @deprecated  replaced by JsonTool.failedJson
      */
-
     public String recover_failed_json(){
         String t = failedJson;
         failedJson = null;
@@ -91,7 +82,6 @@ public class ObjectSocket extends MessageSocket {
      *
      * @return   JSONString
      */
-
     public String recv_object_asString()
     {
         String s_size = recv_msg();
@@ -107,11 +97,10 @@ public class ObjectSocket extends MessageSocket {
      * @param type  Class type of obj
      * @throws java.io.IOException Throws IOException if conversion fails
      */
-
     public void send_object(Object obj, Type type) throws IOException {
         String json = null;
 
-        json = gson.toJson(obj, type);
+        json = JsonTool.toJson(obj, type);
 
         send_msg(Integer.toString(json.getBytes().length));
         recv_msg();
