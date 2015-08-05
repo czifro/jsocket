@@ -37,7 +37,7 @@ The ObjectSocket class is functional partly due to Google's [Gson package for Ja
 MIT License
 ---------------------------
 
-The JSocket repository is released and the MIT License. Use it anyway you like. I release this software as is. In no way am I liable for anything as per outlined by the MIT License.
+The JSocket repository is released under the MIT License. Use it anyway you like. I release this software as is. In no way am I liable for anything as per outlined by the MIT License.
 
 
 =====================
