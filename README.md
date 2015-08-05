@@ -4,12 +4,6 @@ JSocket
 [![Build Status](https://travis-ci.org/czifro/JSocket.svg?branch=master)](https://travis-ci.org/czifro/JSocket.svg?branch=master)
 
 
-GNU General Public License
----------------------------
-
-The JSocket repository is released and the GNU GPL license. The root package jsock, and all packages and classes it contains, belong to this license. It is completely free. I just ask that if you use a substantial amount of my code, or you plug any of the .jar files that I provide into your project, that you give me credit for my work. Other than that, feel free to use and or modify it.
-
-
 Summary
 ----------
 
@@ -37,6 +31,15 @@ Credit
 The ObjectSocket class is functional partly due to Google's [Gson package for Java](https://code.google.com/p/google-gson/). This package is great for converting any object to JSON and vice versa.
 
    
+=====================
+
+
+MIT License
+---------------------------
+
+The JSocket repository is released and the MIT License. Use it anyway you like. I release this software as is. In no way am I liable for anything as per outlined by the MIT License.
+
+
 =====================
 
 
