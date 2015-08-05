@@ -4,11 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jsock</groupId>
+    <groupId>com.czifrodevelopment.jsocket</groupId>
     <artifactId>jsocket</artifactId>
     <packaging>jar</packaging>
     <name>JSocket</name>
-    <version>0.4.1-SNAPSHOT</version>
+    <version>0.4.2</version>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://opensource.org/licenses/mit-license.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
