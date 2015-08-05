@@ -6,6 +6,8 @@
 
     <groupId>com.jsock</groupId>
     <artifactId>jsocket</artifactId>
+    <packaging>jar</packaging>
+    <name>JSocket</name>
     <version>0.4.1-SNAPSHOT</version>
     <dependencies>
         <dependency>
