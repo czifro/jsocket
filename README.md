@@ -46,4 +46,4 @@ The JSocket repository is released under the MIT License. Use it anyway you like
 Download
 -----------
 
-Link to builds: https://www.dropbox.com/sh/kz0lbcw93r03tfx/AADt_1Jc8MImNdgpZQyF2u9Ia?dl=0
+[Access JAR files here] (https://github.com/czifro-development/JSocket/tree/mvn-repo/com/czifrodevelopment/jsocket/jsocket/0.4.2-SNAPSHOT)
