@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.czifrodevelopment.jsocket</groupId>
+  <artifactId>jsocket</artifactId>
+  <versioning>
+    <versions>
+      <version>0.4.2-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20150805060108</lastUpdated>
+  </versioning>
+</metadata>
