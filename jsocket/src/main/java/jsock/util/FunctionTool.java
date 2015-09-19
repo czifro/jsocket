@@ -43,7 +43,7 @@ public class FunctionTool {
      * Returns a function that removes sanitization from a string
      * @return
      */
-    private static Function<String, String> removeNullCharSanitization()
+    protected static Function<String, String> removeNullCharSanitization()
     {
         return new Function<String, String>() {
             @Override
