@@ -1,12 +1,67 @@
-0.1.1:
+0.5.0 (beta1):
 
-- Included JSocket and MessageSocket class
-- Bugs of previous build were fixed
-   
-0.2.0:
+- Currently under development
 
-- Added ObjectSocket to package
-- Fixed JavaDocs
+0.5.0 (vNext outline):
+
+- These are the goals of vNext
+   - Overhauling entire package
+      - Changing package structure
+      - Using more of an API approach
+         - Previous versions used Gson as JSON SerDe. This version will provide an interface to wrap around any JSON SerDe library
+         - Different Socket abstractions provide interface to use a custom implementation
+         - Custom exceptions
+            - Default implementations of all API will throw Runtime exceptions. This allows custom implementations the freedom to use any exception or none
+         - Encryption improvements
+            - Interfaces will be provided to use custom implementation
+            - Hierarchy will be used to allow for potentially more algorithms to be used
+            - Supporting both RSA and AES to start
+      - Package will be more efficient
+      - File transfer
+         - An abstraction for transferring files will be a later feature
+         - Transferring large files will be the primary concern
+   - More strictly following Java standard for code style
+      - Previous versions used C# styling
+
+0.4.2:
+
+- Switched to MIT License
+- Removed functionality of FileTransferSockey until bugs can be worked out
+- Deprecated StringTool for FunctionTool
+   - Maintaining backwards compatibility
+   - Lambda expressions can be used with MessageSocket class to create custom filtering functions
+      - A predefined function for removing null bits is currently available
+- Refactored JSON parser to separate class (JsonTool)
+   - Developer can serialize and deserialize outside of ObjectSocket
+
+0.4.1 (unstable):
+
+- Improved protocol of FileTransferSocket
+- License is correct for each file
+- Switched encryption to RSA for asymmetric encryption
+   - Give it a value of 1024, 2048, or 4096 to generate key pairs (next version will use enum to specify length)
+
+0.4.0 (unstable):
+
+- Restructered packages
+   - Made jsock root package. Structure as follows:
+      - jsock.crypto: Contains Cryptographic classes: AES
+      - jsock.enums: Contains enum and static class to be utilized internally: StringCleanType, TransferType
+      - jsock.net: Contains main classes: JSocket, MessageSocket, ObjectSocket
+      - jsock.net.ftp: Contains class to handle file transferring: FileTransferSocket
+      - jsock.util: Utility classes, mostly used internally: ByteChecker, StringCleaner
+   - JSocket can be set to be an encrypted connection, affects all subclasses
+   - FileTransferSocket will checksum bytes to ensure success
+   - Refactored code
+
+0.3.1:
+
+- Fixed bug with sending large file
+
+0.3.0 (stable):
+
+- Merged into main package
+- Fixed bugs, successfully sends and receives files
 
 0.3.0 (unstable):
 
@@ -15,12 +70,14 @@
 - Changed JSocket.recv_all(size) to read in chunks
 - Added method to send large byte array to JSocket
 - Added method to send large message tp MessageSocket
- 
-0.3.0 (stable):
 
-- Merged into main package
-- Fixed bugs, successfully sends and receives files
+0.2.0:
 
-0.3.1:
+- Added ObjectSocket to package
+- Fixed JavaDocs
 
-- Fixed bug with sending large file
+0.1.1:
+
+- Included JSocket and MessageSocket class
+- Bugs of previous build were fixed
+   
