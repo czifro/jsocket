@@ -35,4 +35,6 @@ public interface EncryptedSocket {
      * @param data
      */
     void sendEncrypted(byte[] data);
+
+    boolean connectionIsEncrypted();
 }

@@ -9,6 +9,12 @@ package jsocket.socket;
 public interface Socket {
 
     /**
+     * Sets the default buffer size for receiving data
+     * @param bufferSize
+     */
+    void setBufferSize(int bufferSize);
+
+    /**
      * Receives data as byte array
      * @return data
      */
@@ -16,7 +22,7 @@ public interface Socket {
 
     /**
      * Receives data of certain size as byte array
-     * @param size number of bytes to read in
+     * @param size number of bytes to read in, overrides bufferSize for this single method call
      * @return data
      */
     byte[] receiveAll(int size);
