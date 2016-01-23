@@ -3,6 +3,7 @@ package jsocket.util;
 /**
  * Abstraction so that any JSON library can be used with this package
  * @author Will Czifro
+ * @version 0.1.0
  */
 public interface JsonService {
 

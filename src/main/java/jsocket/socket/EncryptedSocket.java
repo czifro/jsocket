@@ -4,8 +4,7 @@ import jsocket.cipher.Crypto;
 
 /**
  * Abstracts jsocket.socket.Socket to add an encryption step to sending and receiving bytes
- * It is suggested that implementation extend jsocket.socket.SocketImpl
- * Default implementation uses simple protocol to ensure all bytes are transferred
+ * It is suggested that implementation also implement jsocket.socket.SocketImpl
  * @author Will Czifro
  * @version 0.1.0
  */
@@ -36,5 +35,10 @@ public interface EncryptedSocket {
      */
     void sendEncrypted(byte[] data);
 
+    /**
+     * Returns true if a Cryptographic service is set, otherwise false
+     * If a Cryptographic service is set, connection is encrypted.
+     * @return
+     */
     boolean connectionIsEncrypted();
 }

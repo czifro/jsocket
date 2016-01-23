@@ -1,7 +1,9 @@
 package jsocket.exceptions;
 
 /**
+ * Used when an encrypted socket does not have a Cryptographic service set
  * @author Will Czifro
+ * @version 0.1.0
  */
 public class UnsetCryptographicServiceException extends RuntimeException {
 
