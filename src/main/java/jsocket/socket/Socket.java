@@ -32,4 +32,9 @@ public interface Socket {
      * @param data data to be sent
      */
     void send(byte[] data);
+
+    /**
+     * Closes the input and output streams and closes socket connection
+     */
+    void close();
 }

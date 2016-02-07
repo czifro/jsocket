@@ -1,6 +1,7 @@
 package jsocket.util;
 
 import com.google.gson.Gson;
+import jsocket.exceptions.MalformedJsonException;
 
 /**
  * Default implementation of JsonService. Wraps around com.google.gson.Gson.
@@ -16,7 +17,11 @@ public class JsonServiceImpl implements JsonService {
     }
 
     public <T> T fromJson(String json, Class<T> type) {
-        return gson.fromJson(json, type);
+        try {
+            return gson.fromJson(json, type);
+        } catch (Throwable throwable) {
+            throw new MalformedJsonException(throwable);
+        }
     }
 
     public <T> String toJson(T t, Class<T> type) {

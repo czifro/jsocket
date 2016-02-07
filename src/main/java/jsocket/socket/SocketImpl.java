@@ -32,6 +32,7 @@ public class SocketImpl implements Socket, EncryptedSocket {
             this.in = new DataInputStream(conn.getInputStream());
             this.out = new DataOutputStream(conn.getOutputStream());
         } catch (Exception e) {
+            close();
             throw new InstantiationException(e);
         }
     }
@@ -49,7 +50,7 @@ public class SocketImpl implements Socket, EncryptedSocket {
             byte[] data = new byte[size];
             in.read(data, 0, size);
             return data;
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new SocketStreamException("Error receiving data", e);
         }
     }
@@ -59,6 +60,23 @@ public class SocketImpl implements Socket, EncryptedSocket {
             out.write(data, 0, data.length);
         } catch (Exception e) {
             throw new SocketStreamException("Error sending data", e);
+        }
+    }
+
+    public void close() {
+        try {
+            if (in != null)
+                in.close();
+            if (out != null)
+                out.close();
+            if (conn != null)
+                conn.close();
+        } catch (IOException e) {
+            throw new SocketStreamException("Error when closing connection", e);
+        } finally {
+            in = null;
+            out = null;
+            conn = null;
         }
     }
 
