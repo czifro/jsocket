@@ -1,6 +1,16 @@
 0.5.0 (beta1):
 
-- Currently under development
+- Restructured entire package
+   - Completely new implementation
+   - New package hierarchy
+      jsocket
+         .exceptions.*
+         .socket.*
+         .util.*
+- New API
+   - Defined interfaces for custom implementation
+- Uses Java style guide standard
+- Cryptographic services have ben left to the next beta version
 
 0.5.0 (vNext outline):
 

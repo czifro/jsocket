@@ -13,7 +13,7 @@ import java.io.IOException;
  * Basic Socket abstraction
  * @author Will Czifro
  */
-public class SocketImpl implements Socket, EncryptedSocket {
+public class SocketImpl implements Socket {
 
     //////// Base variables ////////
     private java.net.Socket conn;

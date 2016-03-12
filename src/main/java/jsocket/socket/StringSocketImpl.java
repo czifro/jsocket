@@ -22,20 +22,12 @@ public class StringSocketImpl extends SocketImpl implements StringSocket {
     }
 
     public String receiveFixedString(int length) {
-        byte[] data;
-        if (connectionIsEncrypted())
-            data = receiveEncryptedAll(length);
-        else
-            data = receiveAll(length);
-
+        byte[] data = receiveAll(length);
         return buildString(data);
     }
 
     public void sendString(String str) {
-        if (connectionIsEncrypted())
-            sendEncrypted(str.getBytes());
-        else
-            send(str.getBytes());
+        send(str.getBytes());
     }
 
     public void setFilterFunction(FilterFunctionType type) {

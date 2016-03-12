@@ -7,30 +7,33 @@
     <groupId>com.czifrotech.jsocket</groupId>
     <artifactId>jsocket</artifactId>
     <packaging>jar</packaging>
-    <name>JSocket</name>
-    <version>0.4.2-SNAPSHOT</version>
-
+    <name>jsocket</name>
+    <version>0.5.0-SNAPSHOT</version>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://opensource.org/licenses/mit-license.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>wczifro</id>
+            <name>Will Czifro</name>
+            <email>will@czifrotech.com</email>
+        </developer>
+    </developers>
     <distributionManagement>
-        <repository>
-            <id>czifrotech</id>
-            <name>JSocket builds</name>
-            <url>scp://jsocket-maven@ftp.maven.czifrotech.com/var/www/czifrotech/maven/jsocket</url>
-        </repository>
+        <snapshotRepository>
+            <id>sonatype-nexus-staging</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <!--<repository>-->
+        <!--<id>sonatype</id>-->
+        <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>-->
+        <!--</repository>-->
     </distributionManagement>
-
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>2.8</version>
-            </extension>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh-external</artifactId>
-                <version>2.8</version>
-            </extension>
-        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -42,26 +45,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>JSocket-mvn-repo</id>
-            <url>scp://jsocket-maven@maven.czifrotech.com</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>http://opensource.org/licenses/mit-license.html</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
