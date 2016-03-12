@@ -22,10 +22,6 @@ public class SocketImpl implements Socket {
     private int bufferSize;
     ////////////////////////////////
 
-    //////// Encrypted Socket Variables /////////
-    private Crypto encryptionService;
-    /////////////////////////////////////////////
-
     public SocketImpl(java.net.Socket conn) {
         try {
             this.conn = conn;
@@ -78,30 +74,6 @@ public class SocketImpl implements Socket {
             out = null;
             conn = null;
         }
-    }
-
-    public void setEncryptionService(Crypto encryptionService) {
-        this.encryptionService = encryptionService;
-    }
-
-    public byte[] receiveEncrypted() {
-        return receiveEncryptedAll(bufferSize);
-    }
-
-    public byte[] receiveEncryptedAll(int size) {
-        if (!connectionIsEncrypted())
-            throw new UnsetCryptographicServiceException();
-        return encryptionService.decrypt(receiveAll(size));
-    }
-
-    public void sendEncrypted(byte[] data) {
-        if (!connectionIsEncrypted())
-            throw new UnsetCryptographicServiceException();
-        send(encryptionService.encrypt(data));
-    }
-
-    public boolean connectionIsEncrypted() {
-        return encryptionService != null;
     }
 
     protected int getBufferSize() {
