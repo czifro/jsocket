@@ -19,7 +19,7 @@ import java.net.SocketAddress;
  */
 public class StringSocketIntegrationTest {
 
-    private final int PORT = 50000;
+    private final int PORT = 50001;
     private ServerSocket server;
 
     private void initialize() throws IOException {

@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.fail;
  */
 public class ObjectSocketIntegrationTest {
 
-    private final int PORT = 50000;
+    private final int PORT = 50002;
     private ServerSocket server;
 
     private void initialize() throws IOException {
@@ -28,7 +28,7 @@ public class ObjectSocketIntegrationTest {
     }
 
     @Test
-    public void fullStringSocketTest_Success() {
+    public void fullObjectSocketTest_Success() {
         final String message = "Hello";
         final ObjectSocket[] objectSockets = new ObjectSocket[2];
 
