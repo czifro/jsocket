@@ -6,6 +6,7 @@ import xml.dom.minidom
 
 print "os.environ contains:"
 print ', '.join(os.environ)
+print os.environ["TRAVIS_BRANCH"]
 sys.exit()
 
 if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":
