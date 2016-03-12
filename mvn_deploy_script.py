@@ -4,13 +4,13 @@ import os
 import os.path
 import xml.dom.minidom
 
-if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":
-    print "no secure env vars available, skipping deployment"
-    sys.exit()
-
 print "os.environ contains:"
 print ', '.join(os.environ)
 sys.exit()
+
+if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":
+    print "no secure env vars available, skipping deployment"
+    sys.exit()
 
 homedir = os.path.expanduser("~")
 
