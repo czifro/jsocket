@@ -4,3 +4,4 @@ jdk:
   - oraclejdk8
 before_install: mvn install -DskipTests=true
 script: mvn test
+after_install: python mvn_deploy_script.py
