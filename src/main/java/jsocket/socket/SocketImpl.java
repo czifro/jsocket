@@ -1,9 +1,7 @@
 package jsocket.socket;
 
-import jsocket.cipher.Crypto;
 import jsocket.exceptions.InstantiationException;
 import jsocket.exceptions.SocketStreamException;
-import jsocket.exceptions.UnsetCryptographicServiceException;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
