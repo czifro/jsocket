@@ -1,7 +1,10 @@
 *.class
 
+# Maven stuff
+target/
+
 # .IDEA Files
-jsocket/.idea/
+.idea/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
