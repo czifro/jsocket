@@ -10,7 +10,7 @@ import java.util.function.Function;
  * @author Will Czifro
  * @version 0.1.0
  */
-public interface StringSocket {
+public interface StringSocket extends Socket {
 
     /**
      * Receives data as string, byte array is converted to string

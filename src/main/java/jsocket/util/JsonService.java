@@ -24,4 +24,8 @@ public interface JsonService {
      * @return string
      */
     <T> String toJson(T t, Class<T> type);
+
+    static JsonService defaultImpl() {
+        return new JsonServiceImpl();
+    }
 }

@@ -1,5 +1,6 @@
 package jsocket.socket;
 
+import jsocket.cipher.Crypto;
 import jsocket.exceptions.InstantiationException;
 import jsocket.exceptions.SocketStreamException;
 
@@ -11,7 +12,9 @@ import java.io.IOException;
  * Basic Socket abstraction
  * @author Will Czifro
  */
-public class SocketImpl implements Socket {
+public class SocketImpl implements Socket, EncryptedSocket {
+
+    // begin Socket implementation
 
     //////// Base variables ////////
     private java.net.Socket conn;
@@ -77,4 +80,32 @@ public class SocketImpl implements Socket {
     protected int getBufferSize() {
         return bufferSize;
     }
+    // end Socket implementation
+
+    // begin EncryptedSocket implementation
+
+    /////// EncryptedSocket variables ////////
+    private Crypto encryptionService = null;
+    //////////////////////////////////////////
+
+    public void setEncryptionService(Crypto encryptionService) {
+
+    }
+
+    public byte[] receiveEncrypted() {
+        return receiveEncryptedAll(getBufferSize());
+    }
+
+    public byte[] receiveEncryptedAll(int size) {
+        return encryptionService.decrypt(receiveAll(size));
+    }
+
+    public void sendEncrypted(byte[] data) {
+        send(encryptionService.encrypt(data));
+    }
+
+    public boolean connectionIsEncrypted() {
+        return encryptionService != null;
+    }
+    // end EncryptedSocket implementation
 }

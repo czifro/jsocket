@@ -8,7 +8,7 @@ import jsocket.util.JsonService;
  * @author Will Czifro
  * @version 0.1.0
  */
-public interface ObjectSocket {
+public interface ObjectSocket extends StringSocket {
 
     /**
      * Receives a complex object, converts byte array to string in JSON format to object

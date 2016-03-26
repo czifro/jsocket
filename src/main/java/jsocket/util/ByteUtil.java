@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
  * @author Will Czifro
  * @version 0.1.0
  */
-public class ByteUtil {
+public final class ByteUtil {
 
     public static byte[] intToByteArray(int val, int len) {
         return ByteBuffer.allocate(len).putInt(val).array();

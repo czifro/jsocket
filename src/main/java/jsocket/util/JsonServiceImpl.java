@@ -8,7 +8,7 @@ import jsocket.exceptions.MalformedJsonException;
  * @author Will Czifro
  * @version 0.1.0
  */
-public class JsonServiceImpl implements JsonService {
+public final class JsonServiceImpl implements JsonService {
 
     private Gson gson;
 

@@ -40,7 +40,7 @@ public class StringSocketIntegrationTest {
                 try {
                     stringSockets[0] = new StringSocketImpl(server.accept());
 
-                    ((Socket)stringSockets[0]).setBufferSize(1024);
+                    stringSockets[0].setBufferSize(1024);
                     stringSockets[0].setFilterFunction(FilterFunctionType.NULL_CHARS);
                     stringSockets[0].useFilterFunction(true);
 
@@ -48,7 +48,7 @@ public class StringSocketIntegrationTest {
 
                     String msg = stringSockets[0].receiveString();
 
-                    ((Socket)stringSockets[0]).close();
+                    stringSockets[0].close();
 
                     assertThat(msg.equals("Hi there")).isTrue();
                 } catch (IOException e) {
@@ -60,7 +60,7 @@ public class StringSocketIntegrationTest {
 
             stringSockets[1] = new StringSocketImpl(new java.net.Socket(ip, PORT));
 
-            ((Socket)stringSockets[1]).setBufferSize(1024);
+            stringSockets[1].setBufferSize(1024);
             stringSockets[1].setFilterFunction(FilterFunctionType.NULL_CHARS);
             stringSockets[1].useFilterFunction(true);
 
@@ -68,7 +68,7 @@ public class StringSocketIntegrationTest {
 
             stringSockets[1].sendString("Hi there");
 
-            ((Socket)stringSockets[1]).close();
+            stringSockets[1].close();
             server.close();
 
             serverThread.join();

@@ -43,16 +43,16 @@ public class ObjectSocketIntegrationTest {
 
                     objectSockets[0] = new ObjectSocketImpl(server.accept());
 
-                    ((Socket)objectSockets[0]).setBufferSize(1024);
+                    objectSockets[0].setBufferSize(1024);
                     objectSockets[0].setJsonTool(new JsonServiceImpl());
-                    ((StringSocket)objectSockets[0]).setFilterFunction(FilterFunctionType.NULL_CHARS);
-                    ((StringSocket)objectSockets[0]).useFilterFunction(true);
+                    objectSockets[0].setFilterFunction(FilterFunctionType.NULL_CHARS);
+                    objectSockets[0].useFilterFunction(true);
 
                     objectSockets[0].sendObject(p);
 
                     MockPerson p1 = objectSockets[0].receiveObject(MockPerson.class);
 
-                    ((Socket)objectSockets[0]).close();
+                    objectSockets[0].close();
 
                     assertThat(p1.Name.equals("Hannah Lee")).isTrue();
                 } catch (IOException e) {
@@ -67,16 +67,16 @@ public class ObjectSocketIntegrationTest {
 
             objectSockets[1] = new ObjectSocketImpl(new java.net.Socket(ip, PORT));
 
-            ((Socket)objectSockets[1]).setBufferSize(1024);
+            objectSockets[1].setBufferSize(1024);
             objectSockets[1].setJsonTool(new JsonServiceImpl());
-            ((StringSocket)objectSockets[1]).setFilterFunction(FilterFunctionType.NULL_CHARS);
-            ((StringSocket)objectSockets[1]).useFilterFunction(true);
+            objectSockets[1].setFilterFunction(FilterFunctionType.NULL_CHARS);
+            objectSockets[1].useFilterFunction(true);
 
             MockPerson p1 = objectSockets[1].receiveObject(MockPerson.class);
 
             objectSockets[1].sendObject(p);
 
-            ((Socket)objectSockets[1]).close();
+            objectSockets[1].close();
             server.close();
 
             serverThread.join();
