@@ -1,4 +1,6 @@
-package jsocket.cipher;
+package jsocket.cipher.rsa;
+
+import jsocket.cipher.Crypto;
 
 import java.security.KeyPair;
 import java.security.PrivateKey;
@@ -18,7 +20,7 @@ public interface RSA extends Crypto {
 
     KeyPair getKeyPair();
 
-    void setKeyPair(KeyPair keyPair);
+    void init(KeyPair keyPair);
 
     static KeyPair generateKeyPair() {
         // todo: implement me

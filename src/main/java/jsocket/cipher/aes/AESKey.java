@@ -1,4 +1,4 @@
-package jsocket.cipher;
+package jsocket.cipher.aes;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -15,8 +15,10 @@ public interface AESKey {
 
     SecretKeySpec getSecretKeySpec();
 
-    static AESKey wrap(String key) {
-        // todo: implement me
-        return null;
+    static AESKey wrap(String key, SecretKeySpec keySpec) {
+        AESKey aesKey = new AESKeyImpl();
+        aesKey.setStringKey(key);
+        aesKey.setSecretKeySpec(keySpec);
+        return aesKey;
     }
 }
