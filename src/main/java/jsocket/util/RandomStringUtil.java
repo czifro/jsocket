@@ -10,7 +10,7 @@ import java.util.Random;
 public final class RandomStringUtil {
     private static final SecureRandom rand = new SecureRandom();
 
-    public static String nextRandomString() {
-        return new BigInteger(130, rand).toString(32);
+    public static String nextRandomString(int bitLength) {
+        return new BigInteger(bitLength, rand).toString(32);
     }
 }

@@ -1,10 +1,9 @@
 package jsocket.cipher.rsa;
 
 import jsocket.cipher.Crypto;
+import jsocket.cipher.KeySize;
 
-import java.security.KeyPair;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.*;
 
 /**
  * Cryptographic service that uses the RSA algorithm
@@ -14,16 +13,19 @@ import java.security.PublicKey;
  */
 public interface RSA extends Crypto {
 
-    PublicKey getPublicKey();
+    void init(RSAKey key);
 
-    PrivateKey getPrivateKey();
+    RSAKey getRSAKey();
 
-    KeyPair getKeyPair();
-
-    void init(KeyPair keyPair);
-
-    static KeyPair generateKeyPair() {
+    static KeyPair generateKeyPair(KeySize size) {
         // todo: implement me
+        try {
+            KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+            kpg.initialize(size.toInt());
+            return kpg.generateKeyPair();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

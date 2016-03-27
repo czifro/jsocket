@@ -1,4 +1,4 @@
-package jsocket.cipher.aes;
+package jsocket.cipher.rsa;
 
 import jsocket.cipher.CryptoImpl;
 import jsocket.exceptions.FailedToInitializeException;
@@ -6,23 +6,24 @@ import jsocket.exceptions.FailedToInitializeException;
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidKeyException;
+import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Will Czifro
  */
-public class AESImpl extends CryptoImpl implements AES {
+public class RSAImpl extends CryptoImpl implements RSA {
 
-    private AESKey key = null;
+    public RSAKey key = null;
 
-    public void init(AESKey key) {
+    public void init(RSAKey key) {
         Throwable throwable;
         try {
             this.key = key;
-            encryptCipher = Cipher.getInstance("AES");
-            encryptCipher.init(Cipher.ENCRYPT_MODE, key.getSecretKeySpec());
-            decryptCipher = Cipher.getInstance("AES");
-            decryptCipher.init(Cipher.DECRYPT_MODE, key.getSecretKeySpec());
+            encryptCipher = Cipher.getInstance("RSA");
+            encryptCipher.init(Cipher.ENCRYPT_MODE, key.getPublicKey());
+            decryptCipher = Cipher.getInstance("RSA");
+            decryptCipher.init(Cipher.DECRYPT_MODE, key.getPrivateKey());
             return;
         } catch (NoSuchPaddingException e) {
             throwable = e;
@@ -34,7 +35,7 @@ public class AESImpl extends CryptoImpl implements AES {
         throw new FailedToInitializeException(throwable);
     }
 
-    public AESKey getKey() {
-        return key;
+    public RSAKey getRSAKey() {
+        return null;
     }
 }
