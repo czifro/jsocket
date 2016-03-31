@@ -1,7 +1,6 @@
 package jsocket.cipher.rsa;
 
 import jsocket.cipher.Crypto;
-import jsocket.cipher.KeySize;
 
 import java.security.*;
 
@@ -17,12 +16,11 @@ public interface RSA extends Crypto {
 
     RSAKey getRSAKey();
 
-    static KeyPair generateKeyPair(KeySize size) {
-        // todo: implement me
+    static RSAKey generateKeyPair(Crypto.KeySize size) {
         try {
             KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
             kpg.initialize(size.toInt());
-            return kpg.generateKeyPair();
+            return RSAKey.wrap(kpg.generateKeyPair());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

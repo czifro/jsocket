@@ -24,6 +24,9 @@ public class MockInputStream extends InputStream {
             case 3:
                 data = ByteBuffer.allocate(4).putInt(5000).array();
                 break;
+            case 4:
+                data = ("��Y�\u001BF}�\u000FeK\u0014|ȥn").getBytes();
+                break;
         }
         this.op = op;
     }

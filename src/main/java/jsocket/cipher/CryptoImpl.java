@@ -2,6 +2,7 @@ package jsocket.cipher;
 
 import jsocket.cipher.aes.AES;
 import jsocket.cipher.rsa.RSA;
+import jsocket.exceptions.DecryptionFailureException;
 import jsocket.exceptions.EncryptionFailureException;
 import jsocket.exceptions.UninitializedCipherException;
 
@@ -39,7 +40,7 @@ public class CryptoImpl implements Crypto {
         } catch (BadPaddingException e) {
             throwable = e;
         }
-        throw new EncryptionFailureException(throwable);
+        throw new DecryptionFailureException(throwable);
     }
 
     private void throwIfUninitialized(Cipher cipher) {

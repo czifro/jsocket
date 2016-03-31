@@ -1,3 +1,17 @@
+0.5.0 (beta2):
+
+- Made StringSocket a subtype of Socket and ObjectSocket a subtype of StringSocket
+   - Eliminates casting to access config methods in Socket
+- Added sub package .cipher.*
+   - Contains sub packages .aes.* and .rsa.*
+      - These are algorithms used for cryptographic use cases
+   - Using hierarchy to allow for the addition of cryptographic algorithms
+      - Base class and interface are used to encrypt connection
+      - AES and RSA are subtypes
+      - More algorithms can be added, or custom implementations can be used
+   - Package will act as an external service to the sockets
+- Added new runtime exceptions to .exceptions.*
+
 0.5.0 (beta1):
 
 - Restructured entire package

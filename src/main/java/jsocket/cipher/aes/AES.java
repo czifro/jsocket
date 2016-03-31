@@ -1,7 +1,7 @@
 package jsocket.cipher.aes;
 
 import jsocket.cipher.Crypto;
-import jsocket.cipher.KeySize;
+import jsocket.exceptions.InvalidAESKeyLengthException;
 import jsocket.util.RandomStringUtil;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -18,14 +18,13 @@ public interface AES extends Crypto {
 
     AESKey getKey();
 
-    static AESKey generateKey(KeySize size) {
-        // todo: implement me
-        // convert key size to multiple of 5 by adding extra bits
-        // example: 1024 % 5 = 4
-        // 5 - 4 = 1
-        // 1024 + 1 = 1025
-        int bitLength = size.toInt() + (5 - (size.toInt() % 5));
-        String randString = RandomStringUtil.nextRandomString(bitLength);
-        return AESKey.wrap(randString, new SecretKeySpec(randString.getBytes(), "aes"));
+    static AESKey generateKey(Crypto.KeySize size) {
+        if (size != KeySize.BIT_LENGTH_AES_128)
+            throw new InvalidAESKeyLengthException(Integer.toString(size.toInt()));
+        //
+        int bitLength = 80;
+        String randString = "";
+        while ((randString = RandomStringUtil.nextRandomString(bitLength)).length() != 16);
+        return AESKey.wrap(randString, new SecretKeySpec(randString.getBytes(), "AES"));
     }
 }

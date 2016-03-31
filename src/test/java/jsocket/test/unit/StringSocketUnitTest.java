@@ -1,6 +1,5 @@
 package jsocket.test.unit;
 
-import jsocket.socket.Socket;
 import jsocket.socket.StringSocket;
 import jsocket.test.mock.MockGenerator;
 import jsocket.util.FilterFunctionType;
@@ -19,7 +18,7 @@ public class StringSocketUnitTest {
         if (sut == null)
             fail("Failed to setup sut");
 
-        ((Socket)sut).setBufferSize(1024);
+        sut.setBufferSize(1024);
 
         String msg = sut.receiveString().trim();
 
@@ -32,7 +31,7 @@ public class StringSocketUnitTest {
         if (sut == null)
             fail("Failed to setup sut");
 
-        ((Socket)sut).setBufferSize(1024);
+        sut.setBufferSize(1024);
 
         String msg = sut.receiveFixedString(5);
 
@@ -45,7 +44,7 @@ public class StringSocketUnitTest {
         if (sut == null)
             fail("Failed to setup sut");
 
-        ((Socket)sut).setBufferSize(1024);
+        sut.setBufferSize(1024);
 
         sut.setFilterFunction(FilterFunctionType.NULL_CHARS);
         sut.useFilterFunction(true);
