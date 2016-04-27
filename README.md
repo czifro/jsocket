@@ -2,7 +2,7 @@ JSocket
 ===============
 A Java Socket Programming Library
 
-[![Build Status](https://travis-ci.org/czifro-tech/jsocket.svg?branch=master)
+![Build Status](https://travis-ci.org/czifro-tech/jsocket.svg?branch=master)
 
 
 Summary
@@ -21,6 +21,12 @@ Build History
 --------------
 
 Please use following link: https://github.com/czifro/JSocket/wiki/Listed-Releases
+
+
+Trello
+-------------
+
+Development can be tracked here: https://trello.com/b/6E8x9Mnv
 
 
 ===========
