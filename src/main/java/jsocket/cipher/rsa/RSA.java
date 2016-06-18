@@ -20,7 +20,7 @@ public interface RSA extends Crypto {
 
     /**
      * Get the RSA key
-     * @return
+     * @return rsa key
      */
     RSAKey getRSAKey();
 

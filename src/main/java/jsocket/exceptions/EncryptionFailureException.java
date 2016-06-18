@@ -3,7 +3,7 @@ package jsocket.exceptions;
 /**
  * Thrown if default cryptographic services fail to encrypt data
  * @author Will Czifro
- * @v
+ * @version 0.1.0
  */
 public class EncryptionFailureException extends RuntimeException {
 

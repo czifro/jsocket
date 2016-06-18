@@ -11,7 +11,7 @@ public interface Socket {
 
     /**
      * Sets the default buffer size for receiving data
-     * @param bufferSize
+     * @param bufferSize size of default buffer
      */
     void setBufferSize(int bufferSize);
 

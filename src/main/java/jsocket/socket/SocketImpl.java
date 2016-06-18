@@ -38,7 +38,7 @@ public class SocketImpl implements Socket {
 
     /**
      * Sets the default buffer size for receiving data
-     * @param bufferSize
+     * @param bufferSize size of default buffer
      */
     public void setBufferSize(int bufferSize) {
         this.bufferSize = bufferSize;
