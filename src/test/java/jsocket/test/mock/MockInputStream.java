@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 /**
+ * This is a mocked InputStream.
+ * This is to test specific features of each socket type
  * @author Will Czifro
  */
 public class MockInputStream extends InputStream {
@@ -23,9 +25,6 @@ public class MockInputStream extends InputStream {
                 break;
             case 3:
                 data = ByteBuffer.allocate(4).putInt(5000).array();
-                break;
-            case 4:
-                data = ("��Y�\u001BF}�\u000FeK\u0014|ȥn").getBytes();
                 break;
         }
         this.op = op;

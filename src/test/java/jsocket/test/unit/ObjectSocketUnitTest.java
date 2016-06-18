@@ -24,7 +24,7 @@ public class ObjectSocketUnitTest {
             fail("Failed to setup sut");
 
         JsonService jsonService = new JsonServiceImpl();
-        sut.setJsonTool(jsonService);
+        sut.setJsonService(jsonService);
 
         sut.setBufferSize(1024);
         sut.setFilterFunction(FilterFunctionType.NULL_CHARS);
@@ -42,7 +42,7 @@ public class ObjectSocketUnitTest {
             fail("Failed to setup sut");
 
         JsonService jsonService = new JsonServiceImpl();
-        sut.setJsonTool(jsonService);
+        sut.setJsonService(jsonService);
 
         sut.setBufferSize(1024);
 

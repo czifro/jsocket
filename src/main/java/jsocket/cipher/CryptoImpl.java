@@ -11,12 +11,19 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 
 /**
+ * Default implementation of Crypto interface
+ * Base class for default AES and RSA implementations
  * @author Will Czifro
  */
 public class CryptoImpl implements Crypto {
 
     protected Cipher encryptCipher = null, decryptCipher = null;
 
+    /**
+     * Encrypts data using an underlying algorithm
+     * @param data a byte array that is to be encrypted
+     * @return a byte array that has been processed by the encryption algorithm
+     */
     public byte[] encrypt(byte[] data) {
         throwIfUninitialized(encryptCipher);
         Throwable throwable;
@@ -30,6 +37,11 @@ public class CryptoImpl implements Crypto {
         throw new EncryptionFailureException(throwable);
     }
 
+    /**
+     * Decrypts a cipher using an underlying algorithm
+     * @param cipher a byte array that is to be decrypted
+     * @return a byte array that has been processed by the decryption algorithm
+     */
     public byte[] decrypt(byte[] cipher) {
         throwIfUninitialized(decryptCipher);
         Throwable throwable;

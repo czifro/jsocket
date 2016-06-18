@@ -12,10 +12,23 @@ import java.security.*;
  */
 public interface RSA extends Crypto {
 
+    /**
+     * Initialize the service with an RSAKey
+     * @param key the RSA key
+     */
     void init(RSAKey key);
 
+    /**
+     * Get the RSA key
+     * @return
+     */
     RSAKey getRSAKey();
 
+    /**
+     * Generates a RSA key of specified size
+     * @param size size of RSA key
+     * @return a new RSA key
+     */
     static RSAKey generateKeyPair(Crypto.KeySize size) {
         try {
             KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");

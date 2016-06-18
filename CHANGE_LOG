@@ -6,7 +6,6 @@
    - Contains sub packages .aes.* and .rsa.*
       - These are algorithms used for cryptographic use cases
    - Using hierarchy to allow for the addition of cryptographic algorithms
-      - Base class and interface are used to encrypt connection
       - AES and RSA are subtypes
       - More algorithms can be added, or custom implementations can be used
    - Package will act as an external service to the sockets
@@ -32,7 +31,7 @@
    - Overhauling entire package
       - Changing package structure
       - Using more of an API approach
-         - Previous versions used Gson as JSON SerDe. This version will provide an interface to wrap around any JSON SerDe library
+         - Previous versions used Gson as JSON SerDe. This version will provide a SerDe service that uses any serialization method
          - Different Socket abstractions provide interface to use a custom implementation
          - Custom exceptions
             - Default implementations of all API will throw Runtime exceptions. This allows custom implementations the freedom to use any exception or none
@@ -40,10 +39,10 @@
             - Interfaces will be provided to use custom implementation
             - Hierarchy will be used to allow for potentially more algorithms to be used
             - Supporting both RSA and AES to start
+            - Implemented as an external service
       - Package will be more efficient
-      - File transfer
-         - An abstraction for transferring files will be a later feature
-         - Transferring large files will be the primary concern
+      - Adding UDP support
+        - Abstractions for UDP connections will be added to this library
    - More strictly following Java standard for code style
       - Previous versions used C# styling
 

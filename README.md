@@ -2,7 +2,7 @@ JSocket
 ===============
 A Java Socket Programming Library
 
-![Build Status](https://travis-ci.org/czifro-tech/jsocket.svg?branch=master)
+[![Build Status](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_2)](https://travis-ci.org/czifro-tech/jsocket)
 
 Summary
 ----------
@@ -13,7 +13,7 @@ JSocket was developed to make socket programming in Java simpler. JSocket curren
 How to Use
 -----------
 
-Link to tutorial: https://github.com/czifro/JSocket/wiki/Tutorial
+[Link to Tutorials](docs/tutorials/Tutorial.md)
 
 
 Build History

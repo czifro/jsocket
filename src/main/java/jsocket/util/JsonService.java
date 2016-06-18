@@ -25,6 +25,10 @@ public interface JsonService {
      */
     <T> String toJson(T t, Class<T> type);
 
+    /**
+     * Creates a new instance of JsonService using the default implementation
+     * @return new JsonService instance
+     */
     static JsonService defaultImpl() {
         return new JsonServiceImpl();
     }
