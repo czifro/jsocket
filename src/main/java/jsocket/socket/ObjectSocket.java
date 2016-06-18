@@ -44,5 +44,5 @@ public interface ObjectSocket extends StringSocket {
      * Sets JSON service for converting to and from JSON string and complex objects
      * @param jsonService JSON service
      */
-    void setJsonTool(JsonService jsonService);
+    void setJsonService(JsonService jsonService);
 }

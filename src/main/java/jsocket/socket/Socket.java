@@ -1,6 +1,7 @@
 package jsocket.socket;
 
 /**
+ * Wraps a java.net.Socket and simply sends and receives bytes
  * Base interface for this package
  * Lowest level in abstraction
  * @author Will Czifro
@@ -10,7 +11,7 @@ public interface Socket {
 
     /**
      * Sets the default buffer size for receiving data
-     * @param bufferSize
+     * @param bufferSize size of default buffer
      */
     void setBufferSize(int bufferSize);
 

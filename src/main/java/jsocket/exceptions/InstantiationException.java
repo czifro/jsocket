@@ -1,7 +1,7 @@
 package jsocket.exceptions;
 
 /**
- * Used if an exception occurs when during constructor call
+ * Thrown if an exception occurs during constructor call
  * @author Will Czifro
  * @version 0.1.0
  */

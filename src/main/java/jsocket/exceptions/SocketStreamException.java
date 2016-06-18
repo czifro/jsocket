@@ -1,7 +1,7 @@
 package jsocket.exceptions;
 
 /**
- * Used when exception occurs handling I/O streams and data
+ * Thrown if an exception occurs while performing an I/O operation on a stream
  * @author Will Czifro
  * @version 0.1.0
  */

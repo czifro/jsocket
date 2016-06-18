@@ -1,0 +1,3 @@
+# Exceptions Tutorial
+
+All exceptions in this package are runtime exceptions. This is to make it user friendly as well as to signify that the exception cannot be recovered from. The only exception that can be recovered from is `MalformedJsonException`. If a default instance of `JsonService` is used for `ObjectSocketImpl`, then this exception can be recovered and the malformed json can be retrieved from the `ObjectSocketImpl` instance that threw the exception. For more information on the exceptions, look at the JavaDocs.

@@ -16,9 +16,10 @@ import java.io.UnsupportedEncodingException;
 import static org.assertj.core.api.Assertions.*;
 
 /**
+ * Unit tests for AES encryption for Crypto service
  * @author Will Czifro
  */
-public class CryptoUnitTests {
+public class AESCryptoUnitTests {
 
     @Test
     public void testEncryptAndDecrypt_ValidKey_Success() {

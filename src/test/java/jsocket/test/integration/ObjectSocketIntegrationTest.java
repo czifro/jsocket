@@ -44,7 +44,7 @@ public class ObjectSocketIntegrationTest {
                     objectSockets[0] = new ObjectSocketImpl(server.accept());
 
                     objectSockets[0].setBufferSize(1024);
-                    objectSockets[0].setJsonTool(new JsonServiceImpl());
+                    objectSockets[0].setJsonService(new JsonServiceImpl());
                     objectSockets[0].setFilterFunction(FilterFunctionType.NULL_CHARS);
                     objectSockets[0].useFilterFunction(true);
 
@@ -68,7 +68,7 @@ public class ObjectSocketIntegrationTest {
             objectSockets[1] = new ObjectSocketImpl(new java.net.Socket(ip, PORT));
 
             objectSockets[1].setBufferSize(1024);
-            objectSockets[1].setJsonTool(new JsonServiceImpl());
+            objectSockets[1].setJsonService(new JsonServiceImpl());
             objectSockets[1].setFilterFunction(FilterFunctionType.NULL_CHARS);
             objectSockets[1].useFilterFunction(true);
 
