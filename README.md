@@ -17,10 +17,16 @@ How to Use
 Link to tutorial: https://github.com/czifro/JSocket/wiki/Tutorial
 
 
-Build History
---------------
+Build Status & Download
+------------------------
 
-Please use following link: https://github.com/czifro/JSocket/wiki/Listed-Releases
+|v0.4.2 (master) |v0.5.0 (beta 1) |v0.5.0 (beta 2) |v0.5.0 (active)|
+|:------:|:------:|:------:|:------:|
+|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=master)](https://travis-ci.org/czifro-tech/jsocket)|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_2)](https://travis-ci.org/czifro-tech/jsocket)|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0)](https://travis-ci.org/czifro-tech/jsocket) |
+|[Link](https://github.com/czifro-tech/jsocket/tree/mvn-repo/com/czifrodevelopment/jsocket/jsocket/0.4.2-SNAPSHOT) |[Link](https://www.dropbox.com/sh/2ea67dzctn4d0dl/AACXkmTNF9OOPbw3CHpKpONca?dl=0) |[Link](https://www.dropbox.com/sh/mfmd0sfei6qnxyp/AAC3Best69HwUjNrbXmk7QRea?dl=0) | ---- |
+
+
+History: https://github.com/czifro/JSocket/wiki/Listed-Releases
 
 
 Trello
@@ -46,11 +52,3 @@ MIT License
 
 The JSocket repository is released under the MIT License. Use it anyway you like. I release this software as is. In no way am I liable for anything as per outlined by the MIT License.
 
-
-=====================
-
-
-Download
------------
-
-[Access JAR files here] (https://github.com/czifro-development/JSocket/tree/mvn-repo/com/czifrodevelopment/jsocket/jsocket/0.4.2-SNAPSHOT)
