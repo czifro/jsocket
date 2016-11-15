@@ -1,7 +1,7 @@
 package jsocket.util;
 
-import com.google.gson.Gson;
 import jsocket.exceptions.MalformedJsonException;
+import com.google.gson.Gson;
 
 /**
  * Abstraction so that any JSON library can be used with this package

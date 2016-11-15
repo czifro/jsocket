@@ -1,21 +1,23 @@
-package jsocket.socket;
+package jsocket.datagram;
 
 import jsocket.util.JsonService;
 
-/**
- * Abstracts StringSocket implemntations to handle complex objects instead of strings
- * It is suggested that implementation extend StringSocketImpl
- * Default implementation
- * @author Will Czifro
- * @version 0.1.0
- */
-public class ObjectSocketImpl extends StringSocketImpl implements ObjectSocket {
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
+/**
+ * @author Will Czifro
+ */
+public class ObjectDatagramImpl extends StringDatagramImpl implements ObjectDatagram {
     private JsonService jsonService;
     private String jsonString;
 
-    public ObjectSocketImpl(java.net.Socket conn) {
+    public ObjectDatagramImpl(DatagramSocket conn) {
         super(conn);
+    }
+
+    public ObjectDatagramImpl(DatagramSocket conn, InetAddress address, int port) {
+        super(conn, address, port);
     }
 
     /**
@@ -25,18 +27,7 @@ public class ObjectSocketImpl extends StringSocketImpl implements ObjectSocket {
      * @return complex object
      */
     public <T> T receiveObject(Class<T> type) {
-        return receiveObject(type, getBufferSize());
-    }
-
-    /**
-     * Receives a complex object, converts byte array to string in JSON format to object
-     * @param type type of object
-     * @param <T> type of object
-     * @param size size of object
-     * @return complex object
-     */
-    public <T> T receiveObject(Class<T> type, int size) {
-        jsonString = receiveFixedString(size);
+        jsonString = receiveString();
         return jsonService.fromJson(jsonString, type);
     }
 
@@ -56,6 +47,18 @@ public class ObjectSocketImpl extends StringSocketImpl implements ObjectSocket {
     public <T> void sendObject(T t) {
         String json = jsonService.toJson(t, (Class<T>) t.getClass());
         sendString(json);
+    }
+
+    /**
+     * Sends complex object, converts complex object to JSON string to byte array
+     * @param t generic object
+     * @param address address to send to
+     * @param port port to send on
+     * @param <T> object type
+     */
+    public <T> void sendObject(T t, InetAddress address, int port) {
+        String json = jsonService.toJson(t, (Class<T>) t.getClass());
+        sendString(json, address, port);
     }
 
     /**

@@ -1,13 +1,13 @@
 package jsocket.test.unit;
 
-import jsocket.exceptions.MalformedJsonException;
 import jsocket.socket.ObjectSocket;
+import jsocket.util.FilterFunctionType;
+import jsocket.exceptions.MalformedJsonException;
 
 import static org.assertj.core.api.Assertions.*;
 
 import jsocket.test.mock.MockGenerator;
 import jsocket.test.mock.MockPerson;
-import jsocket.util.FilterFunctionType;
 import jsocket.util.JsonService;
 import jsocket.util.JsonServiceImpl;
 import org.junit.Test;

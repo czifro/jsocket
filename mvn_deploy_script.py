@@ -4,21 +4,23 @@ import os
 import os.path
 import xml.dom.minidom
 
-# print "os.environ contains:"
-# print ', '.join(os.environ)
-# print os.environ["TRAVIS_BRANCH"]
-# sys.exit()
-
-if os.environ["TRAVIS_BRANCH"] != "master" && os.environ["TRAVIS_BRANCH"] != "develop":
-    print "not on master or develop branch, skipping deployment"
-    print "current branch: " + os.environ["TRAVIS_BRANCH"]
-    sys.exit()
-
 if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":
     print "no secure env vars available, skipping deployment"
     sys.exit()
 
 homedir = os.path.expanduser("~")
+
+deployDest = "";
+
+if os.environ["TRAVIS_BRANCH"] == "master":
+    deployDest = "releases"
+elif os.environ["TRAVIS_BRANCH"] == "develop":
+    deployDest = "staging"
+elif "vNext" in os.environ["TRAVIS_BRANCH"]:
+    deployDest = "snapshots"
+else:
+    print "not on develop or master or vNext, skipping deployment"
+    sys.exit()
 
 m2 = xml.dom.minidom.parse(homedir + '/.m2/settings.xml')
 settings = m2.getElementsByTagName("settings")[0]
@@ -35,9 +37,9 @@ sonatypeServerId = m2.createElement("id")
 sonatypeServerUser = m2.createElement("username")
 sonatypeServerPass = m2.createElement("password")
 
-idNode = m2.createTextNode("sonatype-nexus-snapshots")
-userNode = m2.createTextNode(os.environ["SONATYPE_USERNAME"])
-passNode = m2.createTextNode(os.environ["SONATYPE_PASSWORD"])
+idNode = m2.createTextNode(deployDest)
+userNode = m2.createTextNode(os.environ["JSOCKET_USERNAME"])
+passNode = m2.createTextNode(os.environ["JSOCKET_PASSWORD"])
 
 sonatypeServerId.appendChild(idNode)
 sonatypeServerUser.appendChild(userNode)
@@ -50,6 +52,6 @@ sonatypeServerNode.appendChild(sonatypeServerPass)
 serversNode.appendChild(sonatypeServerNode)
 
 m2Str = m2.toxml()
-f = open(homedir + '/.m2/mySettings.xml', 'w')
+f = open(homedir + '/.m2/settings.xml', 'w')
 f.write(m2Str)
 f.close()

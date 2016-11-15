@@ -1,19 +1,12 @@
 package jsocket.test.mock;
 
-import jsocket.cipher.Crypto;
-import jsocket.cipher.aes.AES;
-import jsocket.cipher.aes.AESImpl;
 import jsocket.cipher.aes.AESKey;
-import jsocket.cipher.rsa.RSAKey;
 import jsocket.socket.ObjectSocketImpl;
 import jsocket.socket.SocketImpl;
 import jsocket.socket.StringSocketImpl;
-import sun.security.rsa.RSAPublicKeyImpl;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
-import java.security.KeyPair;
-import java.security.PublicKey;
 
 import static org.mockito.Mockito.*;
 

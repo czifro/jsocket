@@ -1,10 +1,7 @@
 package jsocket.test.integration;
 
-import jsocket.socket.Socket;
-import jsocket.socket.SocketImpl;
-import jsocket.socket.StringSocket;
 import jsocket.socket.StringSocketImpl;
-import jsocket.util.ByteUtil;
+import jsocket.socket.StringSocket;
 import jsocket.util.FilterFunctionType;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;

@@ -2,6 +2,10 @@ sudo: false
 language: java
 jdk:
   - oraclejdk8
+env:
+  global:
+  - JSOCKET_USERNAME=admin
+  - secure: "M3VPonNu5MqdSg2BNdtQdDWfR/VLt9yVzHyGqwquHcZgrT5YjJ6V5snMYinj7wGtE1bB6jGKJpDCeJIE4ACZuVMaLncbvaR9d5mRVUe1DQVcb0cEV6D1BAT49sHj+riJWCEH3npxuky1VI9TzSXHBd9ufLMDKFSalQ1ZwDo9tgRb4bJEEiGA5qhIkEV+ifeYOD9GupXr34v4Q/JtiGmT+PhVsLHBWBm91vjy2zMHRWw/0HkTUHI86ggn1naqkcXqs/8QSVYwq4TcHZYTwRWsce7EPsMYhN++TWKsN7ABuGbCYPTGtIK8gHNey1yhs8CooNAPnnkElonI71N3K1LDLHIQitvZmF07MKmsDIgwIHiMXw5LP/w+c+p1b1WpgbHZ0uVHyiDCSYUHwXG+kKAdOP/B1itR9GpSEjN9irUMV/cPGXgbFekN5IkUu4hPSpwPlBYXofsRBdSFl8htwVWG6ggn2YhO1pFt0sJHmmK+OMP7wFRHateOFGCi13rkQIhkOL3LTHzZDFdNhi/x3ovrHysiK0HmZ7ncHN+EHu8VBX2dEWAFO34JGq7BqpL+xiqjhX58jKpkdJ3VGk+GD4u4ree1IHVoK3IjcWQGBQhD6HVVc+e8Mz6zkMuaEns09YOVSG0KweNOXiS+ME1q5ARd0JcjCNgkqwIcMFn/2d36su8="
 before_install: mvn install -DskipTests=true
 script: mvn test
-after_success: python mvn_deploy_script.py
+after_success: "python mvn_deploy_script.py && mvn clean deploy --settings ~/.m2/settings.xml"

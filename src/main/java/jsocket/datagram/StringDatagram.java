@@ -1,17 +1,14 @@
-package jsocket.socket;
+package jsocket.datagram;
 
 import jsocket.util.FilterFunctionType;
 
+import java.net.InetAddress;
 import java.util.function.Function;
 
 /**
- * Abstracts Socket implementations to handle strings instead of byte arrays
- * It is suggested that implementation extend SocketImpl
  * @author Will Czifro
- * @version 0.1.0
  */
-public interface StringSocket extends Socket {
-
+public interface StringDatagram extends Datagram {
     /**
      * Receives data as string, byte array is converted to string
      * @return data
@@ -19,17 +16,18 @@ public interface StringSocket extends Socket {
     String receiveString();
 
     /**
-     * Receives data as string of certain length, byte array is converted to string
-     * @param length length of string
-     * @return data
-     */
-    String receiveFixedString(int length);
-
-    /**
      * Sends a string, string will be converted to byte array then sent
      * @param str string to be sent
      */
     void sendString(String str);
+
+    /**
+     * Sends a string, string will be converted to byte array then sent
+     * @param str string to be sent
+     * @param address address to send to
+     * @param port port to send on
+     */
+    void sendString(String str, InetAddress address, int port);
 
     /**
      * A function can be used to process string before returning it

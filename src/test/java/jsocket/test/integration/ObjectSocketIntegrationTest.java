@@ -1,6 +1,7 @@
 package jsocket.test.integration;
 
-import jsocket.socket.*;
+import jsocket.socket.ObjectSocket;
+import jsocket.socket.ObjectSocketImpl;
 import jsocket.test.mock.MockPerson;
 import jsocket.util.FilterFunctionType;
 import jsocket.util.JsonServiceImpl;

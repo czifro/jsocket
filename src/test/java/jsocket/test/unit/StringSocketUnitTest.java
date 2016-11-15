@@ -1,8 +1,8 @@
 package jsocket.test.unit;
 
 import jsocket.socket.StringSocket;
-import jsocket.test.mock.MockGenerator;
 import jsocket.util.FilterFunctionType;
+import jsocket.test.mock.MockGenerator;
 
 import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;

@@ -1,3 +1,9 @@
+0.5.0 (beta3):
+
+- Renamed package to jsocket.*
+- Added support for UDP connections
+    - Using same hierarchy system as with TCP
+
 0.5.0 (beta2):
 
 - Made StringSocket a subtype of Socket and ObjectSocket a subtype of StringSocket

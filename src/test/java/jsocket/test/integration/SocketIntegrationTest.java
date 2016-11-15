@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
 
 import static org.assertj.core.api.Assertions.*;
 
-import jsocket.exceptions.SocketStreamException;
 import jsocket.socket.Socket;
 import jsocket.socket.SocketImpl;
 import jsocket.util.ByteUtil;

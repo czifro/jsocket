@@ -1,22 +1,25 @@
-package jsocket.socket;
+package jsocket.datagram;
 
 import jsocket.util.FilterFunctionType;
 
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.function.Function;
 
 /**
- * Abstracts Socket implementations to handle strings instead of byte arrays
- * It is suggested that implementation extend SocketImpl
  * @author Will Czifro
- * @version 0.1.0
  */
-public class StringSocketImpl extends SocketImpl implements StringSocket {
+public class StringDatagramImpl extends DatagramImpl implements StringDatagram {
 
     private Function<String, String> filter;
     private boolean useFunc;
 
-    public StringSocketImpl(java.net.Socket conn) {
+    public StringDatagramImpl(DatagramSocket conn) {
         super(conn);
+    }
+
+    public StringDatagramImpl(DatagramSocket conn, InetAddress address, int port) {
+        super(conn, address, port);
     }
 
     /**
@@ -24,16 +27,7 @@ public class StringSocketImpl extends SocketImpl implements StringSocket {
      * @return data
      */
     public String receiveString() {
-        return receiveFixedString(getBufferSize());
-    }
-
-    /**
-     * Receives data as string of certain length, byte array is converted to string
-     * @param length length of string
-     * @return data
-     */
-    public String receiveFixedString(int length) {
-        byte[] data = receiveAll(length);
+        byte[] data = receive();
         return buildString(data);
     }
 
@@ -43,6 +37,16 @@ public class StringSocketImpl extends SocketImpl implements StringSocket {
      */
     public void sendString(String str) {
         send(str.getBytes());
+    }
+
+    /**
+     * Sends a string, string will be converted to byte array then sent
+     * @param str string to be sent
+     * @param address address to send to
+     * @param port port to send on
+     */
+    public void sendString(String str, InetAddress address, int port) {
+        send(str.getBytes(), address, port);
     }
 
     /**
