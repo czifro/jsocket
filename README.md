@@ -22,7 +22,7 @@ Build Status & Download
 
 |v0.4.2 (master) |v0.5.0 (beta 1) |v0.5.0 (beta 2) |v0.5.0 (active)|
 |:------:|:------:|:------:|:------:|
-|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=master)](https://travis-ci.org/czifro-tech/jsocket)|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_2)](https://travis-ci.org/czifro-tech/jsocket)|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0)](https://travis-ci.org/czifro-tech/jsocket) |
+|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=master)](https://travis-ci.org/czifro-tech/jsocket)|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_2)](https://travis-ci.org/czifro-tech/jsocket)|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_2)](https://travis-ci.org/czifro-tech/jsocket) | [![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0)](https://travis-ci.org/czifro-tech/jsocket)
 |[Link](https://github.com/czifro-tech/jsocket/tree/mvn-repo/com/czifrodevelopment/jsocket/jsocket/0.4.2-SNAPSHOT) |[Link](https://www.dropbox.com/sh/2ea67dzctn4d0dl/AACXkmTNF9OOPbw3CHpKpONca?dl=0) |[Link](https://www.dropbox.com/sh/mfmd0sfei6qnxyp/AAC3Best69HwUjNrbXmk7QRea?dl=0) | ---- |
 
 
