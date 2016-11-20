@@ -1,11 +1,9 @@
 package jsocket.test.mock;
 
-import jsocket.cipher.aes.AESKey;
 import jsocket.socket.ObjectSocketImpl;
 import jsocket.socket.SocketImpl;
 import jsocket.socket.StringSocketImpl;
 
-import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 
 import static org.mockito.Mockito.*;
@@ -17,19 +15,6 @@ import static org.mockito.Mockito.*;
  */
 public class MockGenerator {
 
-
-    public static AESKey mockAESKey(int op) {
-        String key = "3k0abhp8dltkomua";
-        String badKey = "bad key";
-        byte[] keyBytes = new byte[0];
-        if (op == 0)
-            keyBytes = key.getBytes();
-        else
-            keyBytes = badKey.getBytes();
-        SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "AES");
-        AESKey aesKey = AESKey.wrap(key, keySpec);
-        return aesKey;
-    }
 
     public static SocketImpl mockSocket(int op) {
         java.net.Socket conn = mockSocketDependency(op);

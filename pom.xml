@@ -1,14 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" ?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jsocket</groupId>
     <artifactId>jsocket</artifactId>
     <packaging>jar</packaging>
     <name>jsocket</name>
-    <version>0.5.0-beta-3-SNAPSHOT</version>
+    <version>0.5.0-beta-3-SNAPSHOT</version> <!--0.5.0-beta-3-SNAPSHOT-->
     <licenses>
         <license>
             <name>MIT License</name>
@@ -23,20 +20,6 @@
             <email>will@czifrotech.com</email>
         </developer>
     </developers>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://45.55.49.123:8081/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>staging</id>
-            <url>http://45.55.49.123:8081/nexus/content/repositories/staging</url>
-        </repository>
-        <!--<repository>-->
-            <!--<id>releases</id>-->
-            <!--<url>http://45.55.49.123:8081/nexus/content/repositories/releases</url>-->
-        <!--</repository>-->
-    </distributionManagement>
     <build>
         <plugins>
             <plugin>
