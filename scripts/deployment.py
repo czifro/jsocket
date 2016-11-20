@@ -25,7 +25,7 @@ def __do_mvn_deploy():
     mvn = subprocess.Popen(args)
     out, err = mvn.communicate()
     print out # need to print stdout before stderr
-    if out.rfind('[ERROR]') is not -1:
+    if out.rfind('[ERROR]') is not None:
         print "Failed to deploy"
         sys.exit(0)
 
