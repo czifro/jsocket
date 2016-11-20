@@ -5,7 +5,7 @@
     <artifactId>jsocket</artifactId>
     <packaging>jar</packaging>
     <name>jsocket</name>
-    <version>0.5.0-beta-3-SNAPSHOT</version> <!--0.5.0-beta-3-SNAPSHOT-->
+    <version>0.5.0</version> <!--0.5.0-beta-3-SNAPSHOT-->
     <licenses>
         <license>
             <name>MIT License</name>

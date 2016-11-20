@@ -25,29 +25,29 @@ def __do_mvn_deploy():
     mvn = subprocess.Popen(args)
     out, err = mvn.communicate()
     print out # need to print stdout before stderr
-    if err is not None:
-        print err
-        sys.exit(1) # This should fail process, but not build
+    if out.rfind('[ERROR]') is not -1:
+        print "Failed to deploy"
+        sys.exit(0)
 
 def deploy():
     if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":
-        print "no secure env vars available, skipping deployment\n"
+        print "no secure env vars available, skipping deployment"
         sys.exit()
 
     repo_type = __get_repo_type()
-    print "Using maven repo: " + repo_type + "\n"
-    print "Adjusting version in pom.xml...\n"
+    print "Using maven repo: " + repo_type
+    print "Adjusting version in pom.xml..."
     v = pom_editor.set_project_version((repo_type == config.REPO_TYPES[0]), config.BETA, config.BETA_VAL)
-    print "Set version to " + v + "\n"
-    print "Adjusting distribution management config in pom.xml...\n"
+    print "Set version to " + v
+    print "Adjusting distribution management config in pom.xml..."
     pom_editor.add_repo_to_pom(repo_type)
 
     user = os.environ["JSOCKET_USERNAME"]
     pwd = os.environ["JSOCKET_PASSWORD"]
 
-    print "Configuring maven settings...\n"
+    print "Configuring maven settings..."
     maven_settings_editor.setup_settings(repo_type, user, pwd)
 
-    print "Deploying to maven...\n"
+    print "Deploying to maven...\n\n"
     __do_mvn_deploy()
 
