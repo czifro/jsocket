@@ -20,14 +20,9 @@ def __get_repo_type():
         return None
 
 def __do_mvn_deploy():
-    cmd = 'mvn clean deploy --settings ' + maven_settings_editor.settings_path()
+    cmd = 'mvn clean deploy -X --settings ' + maven_settings_editor.settings_path()
     args = shlex.split(cmd)
-    mvn = subprocess.Popen(args)
-    out, err = mvn.communicate()
-    print out # need to print stdout before stderr
-    if out.rfind('[ERROR]') is not None:
-        print "Failed to deploy"
-        sys.exit(0)
+    subprocess.Popen(args)
 
 def deploy():
     if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":
