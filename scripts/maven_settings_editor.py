@@ -23,7 +23,7 @@ def setup_settings(repo_type, user, pwd):
 
     server = doc.createElement("server")
     serverId = doc.createElement("id")
-    serverUser = doc.createElement("user")
+    serverUser = doc.createElement("username")
     serverPass = doc.createElement("password")
 
     id = doc.createTextNode(repo_type)

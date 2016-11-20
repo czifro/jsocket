@@ -78,8 +78,8 @@ def set_project_version(snapshot=False ,beta=False, beta_val=None):
     versionVal = version.firstChild.nodeValue
     if beta:
         versionVal += "-beta"
-    if beta_val is not None:
-        versionVal += "-" + str(beta_val)
+        if beta_val is not None:
+            versionVal += "-" + str(beta_val)
     if snapshot:
         versionVal += "-" + config.REPO_TYPES[0]
 

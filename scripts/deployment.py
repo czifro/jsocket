@@ -28,9 +28,9 @@ def __do_mvn_deploy():
 
 
 def deploy():
-    if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":
-        print "no secure env vars available, skipping deployment"
-        sys.exit()
+    # if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":
+    #     print "no secure env vars available, skipping deployment"
+    #     sys.exit()
 
     repo_type = __get_repo_type()
     print "Using maven repo: " + repo_type
