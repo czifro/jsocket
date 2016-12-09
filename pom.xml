@@ -5,7 +5,7 @@
     <artifactId>jsocket</artifactId>
     <packaging>jar</packaging>
     <name>jsocket</name>
-    <version>0.5.0</version>
+    <version>0.5.0-beta-3-SNAPSHOT</version>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -29,6 +29,19 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -58,4 +71,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-</project>
+<distributionManagement><snapshotRepository><id>snapshots</id><url>http://45.55.49.123:8081/nexus/content/repositories/snapshots</url></snapshotRepository></distributionManagement></project>

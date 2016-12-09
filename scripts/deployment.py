@@ -9,7 +9,7 @@ import maven_settings_editor
 import pom_editor
 
 def __get_repo_type():
-    branch = os.environ["TRAVIS_BRANCH"]
+    branch = 'develop'#os.environ["TRAVIS_BRANCH"]
     if branch.startswith(config.RELEASE_BRANCH_PREFIX):
         return config.REPO_TYPES[2]
     elif re.match(config.STAGING_BRANCH_PATTERN, branch) is not None:
@@ -40,8 +40,8 @@ def deploy():
     print "Adjusting distribution management config in pom.xml..."
     pom_editor.add_repo_to_pom(repo_type)
 
-    user = os.environ["JSOCKET_USERNAME"]
-    pwd = os.environ["JSOCKET_PASSWORD"]
+    user = 'admin'#os.environ["JSOCKET_USERNAME"]
+    pwd = 'admin123'#os.environ["JSOCKET_PASSWORD"]
 
     print "Configuring maven settings..."
     maven_settings_editor.setup_settings(repo_type, user, pwd)

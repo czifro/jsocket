@@ -9,4 +9,4 @@ env:
 
 before_install: mvn install -DskipTests=true
 script: mvn test
-after_success: python deploy.py
+#after_success: python deploy.py
