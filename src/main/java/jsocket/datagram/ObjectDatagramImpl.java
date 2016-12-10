@@ -12,10 +12,16 @@ public class ObjectDatagramImpl extends StringDatagramImpl implements ObjectData
     private JsonService jsonService;
     private String jsonString;
 
+    /**
+     * Inherited from {@link DatagramImpl}
+     */
     public ObjectDatagramImpl(DatagramSocket conn) {
         super(conn);
     }
 
+    /**
+     * Inherited from {@link DatagramImpl}
+     */
     public ObjectDatagramImpl(DatagramSocket conn, InetAddress address, int port) {
         super(conn, address, port);
     }

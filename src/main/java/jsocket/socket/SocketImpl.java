@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.net.SocketException;
 
 /**
- * Wraps a java.net.Socket and simply sends and receives bytes
- * Base interface for this package
+ * Wraps a {@link java.net.Socket} and simply sends and receives bytes
+ * Base class for this subpackage
  * Lowest level in abstraction
  * @author Will Czifro
  * @version 0.1.0

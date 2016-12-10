@@ -1,7 +1,7 @@
 package jsocket.socket;
 
 /**
- * Wraps a java.net.Socket and simply sends and receives bytes
+ * Wraps a {@link java.net.Socket} and simply sends and receives bytes
  * Base interface for this package
  * Lowest level in abstraction
  * @author Will Czifro

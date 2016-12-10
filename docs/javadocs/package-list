@@ -1,6 +1,7 @@
-jsocket.cipher
-jsocket.cipher.aes
-jsocket.cipher.rsa
+jsocket.datagram
 jsocket.exceptions
 jsocket.socket
+jsocket.test.integration
+jsocket.test.mock
+jsocket.test.unit
 jsocket.util

@@ -14,6 +14,6 @@ Available tutorials:
    * [Socket and SocketImpl](SocketTutorial.md)
    * [StringSocket and StringSocketImpl](StringSocketTutorial.md)
    * [ObjectSocket and ObjectSocketImpl](ObjectSocketTutorial.md)
-   * [Crypto](CryptoTutorial.md)
+   * [*Datagram and *DatagramImpl](DatagramTutorial.md)
    * [Exceptions](ExceptionsTutorial.md)
 

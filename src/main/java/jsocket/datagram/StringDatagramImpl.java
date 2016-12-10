@@ -14,10 +14,16 @@ public class StringDatagramImpl extends DatagramImpl implements StringDatagram {
     private Function<String, String> filter;
     private boolean useFunc;
 
+    /**
+     * Inherited from {@link DatagramImpl}
+     */
     public StringDatagramImpl(DatagramSocket conn) {
         super(conn);
     }
 
+    /**
+     * Inherited from {@link DatagramImpl}
+     */
     public StringDatagramImpl(DatagramSocket conn, InetAddress address, int port) {
         super(conn, address, port);
     }
