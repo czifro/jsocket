@@ -1,11 +1,14 @@
 package jsocket.socket;
 
 import jsocket.exceptions.InstantiationException;
+import jsocket.exceptions.SetSocketTimeoutFailureException;
 import jsocket.exceptions.SocketStreamException;
+import jsocket.exceptions.SocketTimeoutException;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.SocketException;
 
 /**
  * Wraps a java.net.Socket and simply sends and receives bytes
@@ -63,6 +66,12 @@ public class SocketImpl implements Socket {
             in.read(data, 0, size);
             return data;
         } catch (Exception e) {
+            // We need to check that the exception did not happen due to timeout
+            // If it did, we need to wrap it in a runtime exception
+            Class<java.net.SocketTimeoutException> steClass = java.net.SocketTimeoutException.class;
+            if (e.getClass() == steClass || e.getCause().getClass() == steClass) {
+                throw new SocketTimeoutException(e);
+            }
             throw new SocketStreamException("Error receiving data", e);
         }
     }
@@ -76,6 +85,19 @@ public class SocketImpl implements Socket {
             out.write(data, 0, data.length);
         } catch (Exception e) {
             throw new SocketStreamException("Error sending data", e);
+        }
+    }
+
+    /**
+     * Set a timeout on the socket {@code InputStream}.
+     * Look to {@link java.net.Socket} for more info
+     * @param timeout
+     */
+    public void setSoTimeout(int timeout) {
+        try {
+            conn.setSoTimeout(timeout);
+        } catch (SocketException e) {
+            throw new SetSocketTimeoutFailureException(e);
         }
     }
 

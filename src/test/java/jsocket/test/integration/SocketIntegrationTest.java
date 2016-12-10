@@ -7,9 +7,11 @@ import java.net.SocketAddress;
 
 import static org.assertj.core.api.Assertions.*;
 
+import jsocket.exceptions.SocketTimeoutException;
 import jsocket.socket.Socket;
 import jsocket.socket.SocketImpl;
 import jsocket.util.ByteUtil;
+import org.junit.After;
 import org.junit.Test;
 
 /**
@@ -23,6 +25,46 @@ public class SocketIntegrationTest {
     private void initialize() throws IOException {
         if (server == null || server.isClosed())
             server = new ServerSocket(PORT);
+    }
+
+    @After
+    public void cleanup() throws IOException {
+        server.close();
+    }
+
+    /**
+     * Timeout requires an actual instance of {@code java.net.Socket}
+     * Mocking is not possible.
+     */
+    @Test
+    public void testTimeoutRead_Success() {
+        final Socket[] sockets = new Socket[2];
+
+        try {
+            initialize();
+            SocketAddress addr = server.getLocalSocketAddress();
+            String ip = ((InetSocketAddress)addr).getAddress().getHostAddress();
+            Thread serverThread = new Thread(() -> {
+                try {
+                    sockets[0] = new SocketImpl(server.accept());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            serverThread.start();
+
+            sockets[1] = new SocketImpl(new java.net.Socket(ip, PORT));
+
+            sockets[1].setSoTimeout(500);
+            try {
+                sockets[1].receiveAll(1);
+            } catch (Throwable t) {
+                assertThat(t.getClass() == SocketTimeoutException.class);
+            }
+        } catch (IOException e) {
+            fail("Something went wrong", e);
+        }
     }
 
     @Test

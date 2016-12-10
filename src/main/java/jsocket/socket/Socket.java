@@ -35,6 +35,13 @@ public interface Socket {
     void send(byte[] data);
 
     /**
+     * Set a timeout on the socket {@code InputStream}.
+     * Look to {@link java.net.Socket} for more info
+     * @param timeout
+     */
+    void setSoTimeout(int timeout);
+
+    /**
      * Closes the input and output streams and closes socket connection
      */
     void close();
