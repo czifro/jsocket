@@ -20,10 +20,24 @@ Link to tutorial: https://github.com/czifro/JSocket/wiki/Tutorial
 Build Status & Download
 ------------------------
 
-|v0.4.2 (master) |v0.5.0 (beta 1) |v0.5.0 (beta 2) |v0.5.0 (active)|
-|:------:|:------:|:------:|:------:|
-|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=master)](https://travis-ci.org/czifro-tech/jsocket)|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_2)](https://travis-ci.org/czifro-tech/jsocket)|[![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_2)](https://travis-ci.org/czifro-tech/jsocket) | [![](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0)](https://travis-ci.org/czifro-tech/jsocket)
-|[Link](https://github.com/czifro-tech/jsocket/tree/mvn-repo/com/czifrodevelopment/jsocket/jsocket/0.4.2-SNAPSHOT) |[Link](https://www.dropbox.com/sh/2ea67dzctn4d0dl/AACXkmTNF9OOPbw3CHpKpONca?dl=0) |[Link](https://www.dropbox.com/sh/mfmd0sfei6qnxyp/AAC3Best69HwUjNrbXmk7QRea?dl=0) | ---- |
+|Version Number|Build Status|Download|
+|:------:|:------:|:------:|
+|v0.4.2 (master) |[![][v0.4.2-buildStatus]][travis-ci]|[Download JAR][v0.4.2]|
+|v0.5.0 (beta 1) |[![][v0.5.0-beta1-buildStatus]][travis-ci]|[Download JAR][v0.5.0-beta1]|
+|v0.5.0 (beta 2) |[![][v0.5.0-beta2-buildStatus]][travis-ci]|[Download JAR][v0.5.0-beta2]|
+|v0.5.0 (beta 3) |[![][v0.5.0-beta3-buildStatus]][travis-ci]|[Download JAR][v0.5.0-beta3]|
+|v0.5.0 (WIP) |[![][v0.5.0-buildStatus]][travis-ci]|---|
+
+[travis-ci]: https://travis-ci.org/czifro-tech/jsocket
+[v0.4.2-buildStatus]: https://travis-ci.org/czifro-tech/jsocket.svg?branch=master
+[v0.4.2]: https://github.com/czifro-tech/jsocket/tree/mvn-repo/com/czifrodevelopment/jsocket/jsocket/0.4.2-SNAPSHOT
+[v0.5.0-beta1-buildStatus]: https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_1
+[v0.5.0-beta1]: https://www.dropbox.com/sh/2ea67dzctn4d0dl/AACXkmTNF9OOPbw3CHpKpONca?dl=0
+[v0.5.0-beta2-buildStatus]: https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_2
+[v0.5.0-beta2]: https://www.dropbox.com/sh/mfmd0sfei6qnxyp/AAC3Best69HwUjNrbXmk7QRea?dl=0
+[v0.5.0-beta3-buildStatus]: https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_3
+[v0.5.0-beta3]: https://www.dropbox.com/s/1vpz9l4q0e8lkto/jsocket-0.5.0-beta-3.jar?dl=0
+[v0.5.0-buildStatus]: https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0
 
 
 History: https://github.com/czifro/JSocket/wiki/Listed-Releases
