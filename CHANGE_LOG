@@ -1,8 +1,11 @@
 0.5.0 (beta3):
 
 - Renamed package to jsocket.*
+- Removed .cipher.*
+    - Removed to avoid any security risks
 - Added support for UDP connections
     - Using same hierarchy system as with TCP
+- Added Timeout to both TCP and UDP
 
 0.5.0 (beta2):
 
