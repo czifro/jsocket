@@ -2,7 +2,7 @@ JSocket
 ===============
 A Java Socket Programming Library
 
-[![Build Status](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0)](https://travis-ci.org/czifro-tech/jsocket)
+[![Build Status](https://travis-ci.org/czifro-tech/jsocket.svg?branch=vNext_0_5_0_beta_3)](https://travis-ci.org/czifro-tech/jsocket)
 
 Summary
 ----------
