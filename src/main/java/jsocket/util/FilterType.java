@@ -1,12 +1,10 @@
 package jsocket.util;
 
-import java.util.function.Function;
-
 /**
  * Enum containing different lambda functions used for filtering strings
  * @author Will Czifro
  */
-public enum FilterFunctionType {
+public enum FilterType {
     NULL_CHARS((s) -> {
         String str = "";
         char[] chars = s.toCharArray();
@@ -19,13 +17,13 @@ public enum FilterFunctionType {
     })
     ;
 
-    private Function<String, String> func;
+    private IFilter func;
 
-    FilterFunctionType(Function<String, String> func) {
+    FilterType(IFilter func) {
         this.func = func;
     }
 
-    public Function<String, String> getFunc() {
+    public IFilter getFunc() {
         return func;
     }
 }
