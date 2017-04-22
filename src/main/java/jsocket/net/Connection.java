@@ -6,6 +6,9 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 
 /**
+ * Base class of hierarchy
+ * This class represents either a UDP or TCP based
+ *   connection
  * @author Will Czifro
  */
 public abstract class Connection implements Closeable {
@@ -21,6 +24,10 @@ public abstract class Connection implements Closeable {
         init();
     }
 
+    /**
+     * Set the timeout for receiving any data
+     * @param timeout Timeout value
+     */
     public void setSoTimeout(int timeout) {
         try {
             if (conn instanceof java.net.Socket) {
@@ -36,8 +43,16 @@ public abstract class Connection implements Closeable {
 
     protected abstract void init();
 
+    /**
+     * Receive data from connection
+     * @return raw data
+     */
     public abstract byte[] receive();
 
+    /**
+     * Send data over connection
+     * @param data
+     */
     public abstract void send(byte[] data);
 
     /**
@@ -54,6 +69,9 @@ public abstract class Connection implements Closeable {
         }
     }
 
+    /**
+     * Close connection
+     */
     public void close() {
         try {
             conn.close();
@@ -62,6 +80,15 @@ public abstract class Connection implements Closeable {
         }
     }
 
+    /**
+     * Gets an instance of a {@link Connection} based subtype of {@code Closeable}.
+     * If {@code Closeable} of type {@link java.net.Socket}, a TCP based
+     *   connection will be returned.
+     * Otherwise if it is of type {@link java.net.DatagramSocket}, a UDP based
+     *   connection will be returned
+     * @param conn raw socket
+     * @return a new {@link Connection}
+     */
     public static Connection getInstance(Closeable conn) {
         if (conn instanceof java.net.Socket)
           return new TCPConnection((java.net.Socket)conn);

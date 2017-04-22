@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
+ * Abstraction used for TCP based connections
  * @author Will Czifro
  */
 public class TCPConnection extends Connection {
@@ -14,6 +15,10 @@ public class TCPConnection extends Connection {
     private DataOutputStream out;
     private int bufferSize;
 
+
+    /**
+     * @param conn raw socket
+     */
     public TCPConnection(Socket conn) {
         super(conn);
     }

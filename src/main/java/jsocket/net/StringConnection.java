@@ -26,11 +26,19 @@ public class StringConnection implements Closeable {
         impl = conn;
     }
 
+    /**
+     * Receives and converts to string
+     * @return received string
+     */
     public String receive() {
         byte[] data = impl.receive();
         return buildString(data);
     }
 
+    /**
+     * Converts to bytes and sends string
+     * @param str string to send
+     */
     public void send(String str) {
         impl.send(str.getBytes());
     }
@@ -63,34 +71,34 @@ public class StringConnection implements Closeable {
         this.useFunc = useFunc;
     }
 
+    /**
+     * Configures connection
+     * @param configurator connection configurator
+     */
     public void configureConnection(IConfigurator configurator) {
         impl = configurator.configure(impl);
     }
 
+    /**
+     * Gets underlying implementation
+     * @return implementation
+     */
     public Connection getImpl() {
         return impl;
     }
 
-    public void close() throws IOException {
+    /**
+     * Close connection
+     */
+    public void close() {
         impl.close();
     }
 
-    /**
-     * Converts a byte array to a string
-     * @param data the byte array to be converted to a string
-     * @return a string
-     */
     private String buildString(byte[] data) {
         String msg = new String(data);
         return runFilterOnString(msg);
     }
 
-    /**
-     * Uses the set filter and processes the string
-     * If the useFunc flag is not set, the string is just returned
-     * @param str the string to be processed
-     * @return the processed string
-     */
     private String runFilterOnString(String str) {
         if (!useFunc) return str;
         return filter.filter(str);

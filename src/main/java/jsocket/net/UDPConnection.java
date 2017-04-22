@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 /**
+ * Abstraction used for UDP based connections
  * @author Will Czifro
  */
 public class UDPConnection extends Connection {
@@ -14,10 +15,19 @@ public class UDPConnection extends Connection {
     private int defaultPort;
     private DatagramPacket lastPacket;
 
+    /**
+     * @param conn raw socket
+     */
     public UDPConnection(DatagramSocket conn) {
         super(conn);
     }
 
+    /**
+     * This is more useful for client side
+     * @param conn raw socket
+     * @param address default address to send to
+     * @param port default port to send to
+     */
     public UDPConnection(DatagramSocket conn, InetAddress address, int port) {
         this(conn);
         defaultAddress = address;
@@ -99,10 +109,10 @@ public class UDPConnection extends Connection {
 
     /**
      * Wraps bytes with {@link DatagramPacket}
-     * This will send packet to specified {@link InetAddress} on specified port
+     * This will send packet to specified {@link InetAddress} to specified port
      * @param data byte[] data to send
      * @param address {@link InetAddress} address to send to
-     * @param port int port to send on
+     * @param port int port to send to
      * @throws {@link ConnectionException} thrown when data exceeds packet size or when packet failed to send
      */
     public void send(byte[] data, InetAddress address, int port) {

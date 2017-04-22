@@ -1,5 +1,8 @@
 package jsocket.util;
 
+/**
+ * Generic interface for SerDe servicing
+ */
 public interface ISerDe {
     <T> byte[] serialize(T t);
 

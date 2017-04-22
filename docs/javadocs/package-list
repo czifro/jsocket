@@ -1,7 +1,4 @@
-jsocket.datagram
-jsocket.exceptions
-jsocket.socket
+jsocket.net
 jsocket.test.integration
-jsocket.test.mock
-jsocket.test.unit
+jsocket.test.util
 jsocket.util
