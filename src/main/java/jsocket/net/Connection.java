@@ -1,8 +1,5 @@
 package jsocket.net;
 
-import jsocket.exceptions.InstantiationException;
-import jsocket.exceptions.SocketTimeoutException;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.DatagramSocket;

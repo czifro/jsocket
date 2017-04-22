@@ -18,5 +18,9 @@
     <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy-agent:1.5.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:2.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.assertj:assertj-core:3.2.0" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.0" level="project" />
+    <orderEntry type="library" name="junit:junit:4.12" level="project" />
+    <orderEntry type="library" name="org.mockito:mockito-core:2.7.22" level="project" />
+    <orderEntry type="library" name="org.assertj:assertj-core:3.6.2" level="project" />
   </component>
 </module>

@@ -27,9 +27,8 @@ public class TCPConnection extends Connection {
             this.in = new DataInputStream(sock().getInputStream());
             this.out = new DataOutputStream(sock().getOutputStream());
         } catch (Exception e) {
-            throw new ConnectionException("Failed to initialize TCP connection", e);
-        } finally {
             close();
+            throw new ConnectionException("Failed to initialize TCP connection", e);
         }
     }
 

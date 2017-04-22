@@ -23,4 +23,4 @@ STAGING_PATH = "/nexus/content/repositories/staging"
 RELEASE_PATH = "/nexus/content/repositories/release"
 
 BETA = True
-BETA_VAL = 3
+BETA_VAL = 4

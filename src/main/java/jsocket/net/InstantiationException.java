@@ -1,4 +1,4 @@
-package jsocket.exceptions;
+package jsocket.net;
 
 /**
  * Thrown if an exception occurs during constructor call
