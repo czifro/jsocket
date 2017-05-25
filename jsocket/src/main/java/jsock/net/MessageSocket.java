@@ -334,14 +334,19 @@ public class MessageSocket extends JSocket {
      * Sends small String objects
      * @param msg String to be sent
      */
-    public void send_msg(String msg){
-        byte[] raw = msg.getBytes("UTF-8");
-        if (connectionIsEncrypted())
-        {
-            send_encrypted(raw);
-            return;
+    public void send_msg(String msg)
+    {
+        try {
+            byte[] raw = msg.getBytes("UTF-8");
+            if (connectionIsEncrypted())
+            {
+                send_encrypted(raw);
+                return;
+            }
+            send(raw);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        send(raw);
     }
 
     public void setDefaultFunction(Function<String, String> f){
