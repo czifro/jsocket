@@ -335,12 +335,13 @@ public class MessageSocket extends JSocket {
      * @param msg String to be sent
      */
     public void send_msg(String msg){
+        byte[] raw = msg.getBytes("UTF-8");
         if (connectionIsEncrypted())
         {
-            send_encrypted(msg.getBytes());
+            send_encrypted(raw);
             return;
         }
-        send(msg.getBytes());
+        send(raw);
     }
 
     public void setDefaultFunction(Function<String, String> f){
